@@ -1,0 +1,25 @@
+# Default values for volumez-csi.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+vlzImage:
+  repository: public.ecr.aws/u0q8u2v6/volumez-csi
+  tag: latest
+
+vlzEndpoint: 
+  apiUrl: bsot4mye15.execute-api.us-east-1.amazonaws.com # api.volumez.com
+  basePath: "dev"                                        # ""
+  websocketId: "cgnvi5rd5m"
+
+vlzAuthToken: ""
+
+vlzConnector:
+  repoUrl: https://volumez-qa-connector-repo.s3.amazonaws.com/connector/  # https://signup.volumez.com/connector/
+  domain: ""                                                              # "connector.volumez.com"
+
+quay:
+ registrarVer: "v1.0.2"
+ attacherVer: "v3.1.0"
+
+k8s:
+  provisionerVer: "v3.0.0"

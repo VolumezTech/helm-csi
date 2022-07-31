@@ -1,0 +1,81 @@
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: csi-attacher-vlzplugin
+spec:
+  serviceName: "csi-attacher"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: csi-attacher-vlzplugin
+  template:
+    metadata:
+      labels:
+        app: csi-attacher-vlzplugin
+    spec:
+      serviceAccount: csi-attacher
+      hostNetwork: true
+      containers:              
+        - name: csi-provisioner
+          image: k8s.gcr.io/sig-storage/csi-provisioner:{{ .Values.k8s.provisionerVer }}
+          args:
+            - "--csi-address=$(ADDRESS)" 
+            - "--extra-create-metadata"   
+            - "--feature-gates=Topology=true"
+            - "--timeout=60s"            
+          env:
+            - name: ADDRESS
+              value: /csi/csi.sock
+          imagePullPolicy: "Always"
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /csi          
+
+        - name: csi-attacher
+          image: quay.io/k8scsi/csi-attacher:{{ .Values.quay.attacherVer }}
+          args:
+            - "--v=5"
+            - "--csi-address=$(ADDRESS)"
+          env:
+            - name: ADDRESS
+              value: /csi/csi.sock
+          imagePullPolicy: "Always"
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /csi
+
+        - name: vlz
+          image: "{{ .Values.vlzImage.repository }}:{{ .Values.vlzImage.tag }}"
+          args :
+            - "--nodeid=$(NODE_ID)"
+            - "--endpoint=$(CSI_ENDPOINT)"
+            - "--volumezendpoint=$(VOLUMEZ_ENDPOINT)"
+            - "--volumezEndpointBasePath=$(VOLUMEZ_ENDPOINT_BASE_PATH)"
+            - "--volumezauthtoken=$(VOLUMEZ_AUTH_TOKEN)"            
+            - "--run_connector=$(RUN_CONNECTOR)"
+            - "--connector_download_repository_base_url=$(connector_download_repository_base_url)"
+            - "--connector_api_domain=$(CONNECTOR_API_DOMAIN)"
+            - "--websocket_id=$(WEBSOCKET_ID)"      
+          env:
+            - name: NODE_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: CSI_ENDPOINT
+              value: unix://plugin/csi.sock
+            - name: VOLUMEZ_ENDPOINT
+              value: "{{ .Values.vlzEndpoint.path }}"
+            - name: VOLUMEZ_ENDPOINT_BASE_PATH
+              value: "{{ .Values.vlzEndpoint.basePath }}"
+            - name: VOLUMEZ_AUTH_TOKEN
+              value: "{{ .Values.vlzAuthToken }}"
+            - name: RUN_CONNECTOR
+              value: 'false'
+            - name: connector_download_repository_base_url
+              value: "{{ .Values.vlzConnector.repo }}"
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /plugin
+      volumes:
+        - name: socket-dir
+          emptyDir:

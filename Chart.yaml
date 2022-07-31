@@ -1,0 +1,7 @@
+apiVersion: v2
+appVersion: "1.16.0"
+description: A Helm chart for Volumez-CSI container
+name: volumez-csi
+type: application
+version: 0.1.0
+icon: https://volumez.com/wp-content/uploads/2022/01/Group-2273.svg

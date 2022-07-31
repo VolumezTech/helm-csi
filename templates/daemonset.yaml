@@ -1,0 +1,119 @@
+kind: DaemonSet
+apiVersion: apps/v1
+metadata:
+  name: csi-nodeplugin-vlzplugin
+spec:
+  selector:
+    matchLabels:
+      app: csi-nodeplugin-vlzplugin
+  template:
+    metadata:
+      labels:
+        app: csi-nodeplugin-vlzplugin
+    spec:
+      serviceAccount: csi-nodeplugin
+      hostNetwork: true
+      containers:
+        - name: node-driver-registrar
+          image: quay.io/k8scsi/csi-node-driver-registrar:{{ .Values.quay.registrarVer }}
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sh", "-c", "rm -rf /registration/csi-vlzplugin /registration/csi-vlzplugin-reg.sock"]
+          args:
+            - --v=5
+            - --csi-address=/plugin/csi.sock
+            - --kubelet-registration-path=/var/lib/kubelet/plugins/csi-vlzplugin/csi.sock
+          env:
+            - name: KUBE_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          volumeMounts:
+            - name: plugin-dir
+              mountPath: /plugin
+            - name: registration-dir
+              mountPath: /registration
+        - name: vlz
+          securityContext:
+            privileged: true
+            capabilities:
+              add: ["SYS_ADMIN"]
+            allowPrivilegeEscalation: true
+          image: "{{ .Values.vlzImage.repository }}:{{ .Values.vlzImage.tag }}"
+          args:
+            - "--nodeid=$(NODE_ID)"
+            - "--endpoint=$(CSI_ENDPOINT)"
+            - "--volumezendpoint=$(VOLUMEZ_ENDPOINT)"
+            - "--volumezEndpointBasePath=$(VOLUMEZ_ENDPOINT_BASE_PATH)"
+            - "--volumezauthtoken=$(VOLUMEZ_AUTH_TOKEN)"
+            - "--run_connector=$(RUN_CONNECTOR)"         
+            - "--connector_download_repository_base_url=$(CONNECTOR_DOWNLOAD_REPOSITORY_BASE_URL)"
+            - "--connector_api_domain=$(CONNECTOR_API_DOMAIN)"
+            - "--websocket_id=$(WEBSOCKET_ID)"      
+          env:
+            - name: NODE_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: CSI_ENDPOINT
+              value: unix://plugin/csi.sock
+            - name: VOLUMEZ_ENDPOINT
+              value: "{{ .Values.vlzEndpoint.apiUrl }}"
+            - name: VOLUMEZ_ENDPOINT_BASE_PATH
+              value: "{{ .Values.vlzEndpoint.basePath }}"
+            - name: VOLUMEZ_AUTH_TOKEN
+              value: "{{ .Values.vlzAuthToken }}"
+            - name: RUN_CONNECTOR
+              value: 'true'
+            - name: CONNECTOR_DOWNLOAD_REPOSITORY_BASE_URL
+              value: "{{ .Values.vlzConnector.repoUrl }}"
+            - name: CONNECTOR_API_DOMAIN
+              value: "{{ .Values.vlzConnector.domain }}"
+            - name: WEBSOCKET_ID
+              value: "{{ .Values.vlzEndpoint.websocketId }}"
+
+          imagePullPolicy: "Always"
+          volumeMounts:
+            - name: plugin-dir
+              mountPath: /plugin
+            - name: pods-mount-dir
+              mountPath: /var/lib/kubelet/pods
+              mountPropagation: "Bidirectional"
+            - mountPath: /lib/modules
+              name: lib-modules
+            - mountPath: /sys
+              name: sysfs
+            - mountPath: /dev
+              name: dev
+            - mountPath: /run/dbus
+              name: systemd
+      volumes:
+        - name: plugin-dir
+          hostPath:
+            path: /var/lib/kubelet/plugins/csi-vlzplugin
+            type: DirectoryOrCreate
+        - name: pods-mount-dir
+          hostPath:
+            path: /var/lib/kubelet/pods
+            type: Directory
+        - hostPath:
+            path: /var/lib/kubelet/plugins_registry
+            type: Directory
+          name: registration-dir
+        - name: lib-modules
+          hostPath:
+            path: /lib/modules
+            type: Directory
+        - name: sysfs
+          hostPath:
+            path: /sys
+            type: Directory
+        - name: dev
+          hostPath:
+            path: /dev
+            type: Directory
+        - name: systemd
+          hostPath: 
+            path: /run/dbus
+            type: Directory    
