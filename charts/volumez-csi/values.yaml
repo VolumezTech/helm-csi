@@ -7,7 +7,7 @@ vlzImage:
   tag: latest
 
 vlzEndpoint: 
-  apiUrl: bsot4mye15.execute-api.us-east-1.amazonaws.com # api.volumez.com - if no custome apigw-id
+  apiUrl: bsot4mye15.execute-api.us-east-1.amazonaws.com # api.volumez.com - if no custom apigw-id
   basePath: "dev"                                        # ""
   websocketId: "cgnvi5rd5m"                              # should be empty if .vlzConnector.domain is set
 
