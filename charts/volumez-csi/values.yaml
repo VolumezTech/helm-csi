@@ -7,15 +7,15 @@ vlzImage:
   tag: latest
 
 vlzEndpoint: 
-  apiUrl: bsot4mye15.execute-api.us-east-1.amazonaws.com # api.volumez.com - if no custom apigw-id
-  basePath: "dev"                                        # ""
-  websocketId: "cgnvi5rd5m"                              # should be empty if .vlzConnector.domain is set
+  apiUrl: api.volumez.com         # <custom-id>.execute-api.<region>.amazonaws.com
+  basePath: ""                    # "dev"
+  websocketId: ""                 # <websocket-id>
 
-vlzAuthToken: ""
+vlzAuthToken: ""                  # CSI Driver Token (Refresh Token)
 
 vlzConnector:
-  repoUrl: https://volumez-qa-connector-repo.s3.amazonaws.com/connector/  # https://signup.volumez.com/connector/
-  domain: ""                                                              # "connector.volumez.com"
+  repoUrl: https://signup.volumez.com/connector/ 
+  domain: connector.volumez.com   # empty if .vlzEndpoint.websocketId is set
 
 quay:
  registrarVer: "v1.0.2"
