@@ -64,7 +64,7 @@ spec:
             - name: CSI_ENDPOINT
               value: unix://plugin/csi.sock
             - name: VOLUMEZ_ENDPOINT
-              value: "{{ .Values.vlzEndpoint.path }}"
+              value: "{{ .Values.vlzEndpoint.apiUrl }}"
             - name: VOLUMEZ_ENDPOINT_BASE_PATH
               value: "{{ .Values.vlzEndpoint.basePath }}"
             - name: VOLUMEZ_AUTH_TOKEN
