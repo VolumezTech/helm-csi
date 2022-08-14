@@ -26,3 +26,4 @@ quay:
 
 k8s:
   provisionerVer: "v3.0.0"
+  snapshotter: "v5.0.1"
