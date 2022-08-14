@@ -17,17 +17,17 @@ spec:
       hostNetwork: true
       containers:
         - name: csi-snapshotter
-            image: k8s.gcr.io/sig-storage/csi-snapshotter:v5.0.1
-            args:
-              - "--v=5"
-              - "--csi-address=$(ADDRESS)"
-            env:
-              - name: ADDRESS
-                value: /csi/csi.sock
-            imagePullPolicy: IfNotPresent
-            volumeMounts:
-              - name: socket-dir
-                mountPath: /csi
+          image: k8s.gcr.io/sig-storage/csi-snapshotter:{{ .Values.k8s.snapshotter }}
+          args:
+            - "--v=5"
+            - "--csi-address=$(ADDRESS)"
+          env:
+            - name: ADDRESS
+              value: /csi/csi.sock
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /csi
 
         - name: csi-provisioner
           image: k8s.gcr.io/sig-storage/csi-provisioner:{{ .Values.k8s.provisionerVer }}
