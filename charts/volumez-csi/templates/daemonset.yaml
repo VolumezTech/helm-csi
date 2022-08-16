@@ -75,7 +75,7 @@ spec:
             - name: WEBSOCKET_ID
               value: "{{ .Values.vlzEndpoint.websocketId }}"
             - name: ENV_ID
-              value: {{ .Values.EnvId }}
+              value: {{ .Values.envId }}
             - name: USE_KAFKA_COMMUNICATOR
               value: {{.Values.useKafkaCommunicator}}
 

@@ -76,9 +76,9 @@ spec:
             - name: connector_download_repository_base_url
               value: "{{ .Values.vlzConnector.repo }}"
             - name: ENV_ID
-              value: {{ .Values.EnvId }}
+              value: {{ .Values.envId }}
             - name: USE_KAFKA_COMMUNICATOR
-              value: {{.Values.use_kafka_communicator}}
+              value: {{.Values.useKafkaCommunicator}}
           volumeMounts:
             - name: socket-dir
               mountPath: /plugin
