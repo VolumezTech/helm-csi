@@ -50,9 +50,9 @@ spec:
             - "--run_connector=$(RUN_CONNECTOR)"         
             - "--connector_download_repository_base_url=$(CONNECTOR_DOWNLOAD_REPOSITORY_BASE_URL)"
             - "--connector_api_domain=$(CONNECTOR_API_DOMAIN)"
-            - "--websocket_id=$(WEBSOCKET_ID)"
+            - "--websocket_id=$(WEBSOCKET_ID)"      
             - "--env_id=$(ENV_ID)"
-            - "--use_kafka_communicator=$(USE_KAFKA_COMMUNICATOR)"      
+            - "--use_kafka_communicator=$(USE_KAFKA_COMMUNICATOR)"    
           env:
             - name: NODE_ID
               valueFrom:
@@ -74,6 +74,10 @@ spec:
               value: "{{ .Values.vlzConnector.domain }}"
             - name: WEBSOCKET_ID
               value: "{{ .Values.vlzEndpoint.websocketId }}"
+            - name: ENV_ID
+              value: "{{ .Values.envId }}"
+            - name: USE_KAFKA_COMMUNICATOR
+              value: "{{ .Values.useKafkaCommunicator }}"
             - name: ENV_ID
               value: "{{ .Values.envId }}"
             - name: USE_KAFKA_COMMUNICATOR
