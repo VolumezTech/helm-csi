@@ -52,7 +52,7 @@ spec:
             - "--connector_api_domain=$(CONNECTOR_API_DOMAIN)"
             - "--websocket_id=$(WEBSOCKET_ID)"
             - "--env_id=$(ENV_ID)"
-            - "--use_kafka_communicator=true"      
+            - "--use_kafka_communicator=$(USE_KAFKA_COMMUNICATOR)"      
           env:
             - name: NODE_ID
               valueFrom:
@@ -75,9 +75,9 @@ spec:
             - name: WEBSOCKET_ID
               value: "{{ .Values.vlzEndpoint.websocketId }}"
             - name: ENV_ID
-              value: {{ .Values.envId }}
+              value: "{{ .Values.envId }}"
             - name: USE_KAFKA_COMMUNICATOR
-              value: {{.Values.useKafkaCommunicator}}
+              value: "{{ .Values.useKafkaCommunicator }}"
 
           imagePullPolicy: "Always"
           volumeMounts:

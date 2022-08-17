@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 envId: ""
-useKafkaCommunicator: false 
+useKafkaCommunicator: false
 
 vlzImage:
   repository: public.ecr.aws/u0q8u2v6/volumez-csi
