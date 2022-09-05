@@ -4,9 +4,6 @@
 envId: ""
 useKafkaCommunicator: false
 
-envId: ""
-useKafkaCommunicator: false
-
 vlzImage:
   repository: public.ecr.aws/u0q8u2v6/volumez-csi
   tag: latest
