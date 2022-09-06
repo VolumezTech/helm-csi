@@ -92,10 +92,6 @@ spec:
               value: "{{ .Values.envId }}"
             - name: USE_KAFKA_COMMUNICATOR
               value: "{{ .Values.useKafkaCommunicator }}"
-            - name: ENV_ID
-              value: "{{ .Values.envId }}"
-            - name: USE_KAFKA_COMMUNICATOR
-              value: "{{ .Values.useKafkaCommunicator }}"
           volumeMounts:
             - name: socket-dir
               mountPath: /plugin
