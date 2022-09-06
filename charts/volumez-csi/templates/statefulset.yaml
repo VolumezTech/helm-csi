@@ -15,7 +15,20 @@ spec:
     spec:
       serviceAccount: csi-attacher
       hostNetwork: true
-      containers:              
+      containers:
+        - name: csi-snapshotter
+          image: k8s.gcr.io/sig-storage/csi-snapshotter:{{ .Values.k8s.snapshotter }}
+          args:
+            - "--v=5"
+            - "--csi-address=$(ADDRESS)"
+          env:
+            - name: ADDRESS
+              value: /csi/csi.sock
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /csi
+
         - name: csi-provisioner
           image: k8s.gcr.io/sig-storage/csi-provisioner:{{ .Values.k8s.provisionerVer }}
           args:
@@ -57,7 +70,7 @@ spec:
             - "--connector_api_domain=$(CONNECTOR_API_DOMAIN)"
             - "--websocket_id=$(WEBSOCKET_ID)"
             - "--env_id=$(ENV_ID)"
-            - "--use_kafka_communicator=$(USE_KAFKA_COMMUNICATOR)"      
+            - "--use_kafka_communicator=$(USE_KAFKA_COMMUNICATOR)"        
           env:
             - name: NODE_ID
               valueFrom:
