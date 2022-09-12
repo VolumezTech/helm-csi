@@ -11,7 +11,7 @@ spec:
       labels:
         app: csi-nodeplugin-vlzplugin
     spec:
-      serviceAccount: csi-nodeplugin
+      serviceAccountName: csi-nodeplugin
       hostNetwork: true
       containers:
         - name: node-driver-registrar
@@ -40,7 +40,7 @@ spec:
             capabilities:
               add: ["SYS_ADMIN"]
             allowPrivilegeEscalation: true
-          image: "{{ .Values.vlzImage.repository }}:{{ .Values.vlzImage.tag }}"
+          image: "{{ .Values.vlzCsiDriver.repository }}:{{ .Values.vlzCsiDriver.tag }}"
           args:
             - "--nodeid=$(NODE_ID)"
             - "--endpoint=$(CSI_ENDPOINT)"
