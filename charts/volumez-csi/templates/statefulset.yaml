@@ -49,7 +49,7 @@ spec:
           args:
             - "--v=5"
             - "--csi-address=$(ADDRESS)"
-            - "--timeout=190s"
+            - "--timeout=200s"
           env:
             - name: ADDRESS
               value: /csi/csi.sock
