@@ -12,8 +12,9 @@ spec:
     metadata:
       labels:
         app: csi-attacher-vlzplugin
+        webhook: vlz-admission-webhook
     spec:
-      serviceAccount: csi-attacher
+      serviceAccountName: csi-attacher
       hostNetwork: true
       containers:
         - name: csi-snapshotter
@@ -28,6 +29,12 @@ spec:
           volumeMounts:
             - name: socket-dir
               mountPath: /csi
+
+        - name: csi-snapshot-controller
+          image: k8s.gcr.io/sig-storage/snapshot-controller:{{ .Values.k8s.snapshotController }}
+          args:
+            - "--v=5"
+          imagePullPolicy: IfNotPresent
 
         - name: csi-provisioner
           image: k8s.gcr.io/sig-storage/csi-provisioner:{{ .Values.k8s.provisionerVer }}
@@ -58,8 +65,23 @@ spec:
             - name: socket-dir
               mountPath: /csi
 
+        - name: vlz-snapshotrollback-controller
+          image: "{{ .Values.vlzSnapshotRollbackController.repository }}:{{ .Values.vlzSnapshotRollbackController.tag }}"
+          imagePullPolicy: "Always"
+          args:
+            - "--volumezendpoint=$(VOLUMEZ_ENDPOINT)"
+            - "--volumezEndpointBasePath=$(VOLUMEZ_ENDPOINT_BASE_PATH)"
+            - "--volumezauthtoken=$(VOLUMEZ_AUTH_TOKEN)"
+          env:
+            - name: VOLUMEZ_ENDPOINT
+              value: "{{ .Values.vlzEndpoint.apiUrl }}"
+            - name: VOLUMEZ_ENDPOINT_BASE_PATH
+              value: "{{ .Values.vlzEndpoint.basePath }}"
+            - name: VOLUMEZ_AUTH_TOKEN
+              value: "{{ .Values.vlzAuthToken }}"
+
         - name: vlz
-          image: "{{ .Values.vlzImage.repository }}:{{ .Values.vlzImage.tag }}"
+          image: "{{ .Values.vlzCsiDriver.repository }}:{{ .Values.vlzCsiDriver.tag }}"
           args :
             - "--nodeid=$(NODE_ID)"
             - "--endpoint=$(CSI_ENDPOINT)"
@@ -96,6 +118,24 @@ spec:
           volumeMounts:
             - name: socket-dir
               mountPath: /plugin
+
+        - image: "{{ .Values.vlzAdmissionWebhook.repository }}:{{ .Values.vlzAdmissionWebhook.tag }}"
+          imagePullPolicy: "Always"
+          name: vlz-admission-webhook
+          env:
+            - name: TLS
+              value: "true"
+            - name: LOG_LEVEL
+              value: "trace"
+            - name: LOG_JSON
+              value: "false"
+          volumeMounts:
+            - name: tls
+              mountPath: "/etc/admission-webhook/tls"
+              readOnly: true
       volumes:
+        - name: tls
+          secret:
+            secretName: vlz-admission-webhook-tls
         - name: socket-dir
           emptyDir:
