@@ -15,7 +15,6 @@ spec:
         webhook: vlz-admission-webhook
     spec:
       serviceAccountName: csi-attacher
-      hostNetwork: true
       containers:
         - name: csi-snapshotter
           image: k8s.gcr.io/sig-storage/csi-snapshotter:{{ .Values.k8s.snapshotter }}
