@@ -12,7 +12,7 @@ spec:
         app: csi-nodeplugin-vlzplugin
     spec:
       serviceAccountName: csi-nodeplugin
-      hostNetwork: true
+      terminationGracePeriodSeconds: 30
       containers:
         - name: node-driver-registrar
           image: quay.io/k8scsi/csi-node-driver-registrar:{{ .Values.quay.registrarVer }}
@@ -41,6 +41,11 @@ spec:
               add: ["SYS_ADMIN"]
             allowPrivilegeEscalation: true
           image: "{{ .Values.vlzCsiDriver.repository }}:{{ .Values.vlzCsiDriver.tag }}"
+          lifecycle:
+            preStop:
+              httpGet:
+                path: "/cleanup"
+                port: 3333
           args:
             - "--nodeid=$(NODE_ID)"
             - "--endpoint=$(CSI_ENDPOINT)"
