@@ -137,3 +137,11 @@ spec:
             secretName: vlz-admission-webhook-tls
         - name: socket-dir
           emptyDir:
+{{- if .Values.csiAttacherVlzplugin.tolerations }}
+      tolerations:
+{{ toYaml .Values.csiAttacherVlzplugin.tolerations | indent 8 }}
+{{- end -}}
+{{- if .Values.csiAttacherVlzplugin.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.csiAttacherVlzplugin.nodeSelector | indent 8 }}
+{{- end -}}

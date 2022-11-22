@@ -42,3 +42,9 @@ k8s:
   provisionerVer: "v3.0.0"
   snapshotter: "v5.0.1"
   snapshotController: "v4.2.1"
+
+csiAttacherVlzplugin: 
+  tolerations: 
+  nodeSelector:
+
+
