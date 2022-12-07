@@ -5,7 +5,7 @@ metadata:
   labels:
     app: vlz-admission-webhook
   name: vlz-admission-webhook
-  namespace: default
+  namespace: {{ .Values.vlzDriverNamespace }}
 spec:
   type: NodePort
   ports:

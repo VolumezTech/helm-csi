@@ -5,7 +5,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: csi-nodeplugin
-    namespace: default
+    namespace: {{ .Values.vlzDriverNamespace }}
 roleRef:
   kind: ClusterRole
   name: csi-nodeplugin

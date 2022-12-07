@@ -1,7 +1,7 @@
 # Default values for volumez-csi.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-envId: ""
+envId: "ayal-envctl-HZZ4HB"
 
 vlzCsiDriver:
   repository: public.ecr.aws/u0q8u2v6/volumez-csi
@@ -17,17 +17,17 @@ vlzSnapshotRollbackController:
 
 vlzEndpoint:
   # <custom-id>.execute-api.<region>.amazonaws.com
-  apiUrl: api.volumez.com
+  apiUrl: te3wcpg19c.execute-api.us-east-1.amazonaws.com
   # "dev"
-  basePath: ""
+  basePath: "dev"
   # <websocket-id>
   websocketId: ""
 
 # CSI Driver Token (Refresh Token)
-vlzAuthToken: ""
+vlzAuthToken: "eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAifQ.CYG_QOlI40EmpJdgcQRalEwz5ABGkjvaGP-75JhVHTde2O_zyX13AKbm3CBPaEM7GFHvlZOpj_BbfxF-G8Id8mqxtZjw7-s-PppZunpRYGVqOcqS8deASJasVYLxwX_umDMTXeqCjn5D13FMXI0WV9bbX4jib7Jkn0Ln3xPgUuaKXcOnzcY6rb0gsbK46lmsZyK3uQIISJmNol9xDpciPM4LVoJ-v4RypU7RB6dLMn8-tGbPMFdJw0Wq1zSG0mwldxtbOkytiqQEQOZyeeLSG0syWqXKLTt4w3lJLSJSfLkTM3Z5FLnNQa4KP2uKUsSSM0vQrvu50gwhSg1AWN7S1Q.vvGtn0QQ25A1U65A.sQ4KPWCmH3Qo25BgHEo7n_k3lvh5LbbYM6wgPCL0eIB_RErEZvOw9dLcTXJGtugAZwh3bPzaFPqwXbGzLZQjZ8NKUAWkLWKKgnNbTPyIlDm1sh8mggG98Wdo6EKsmGHhNoqPFwsWs_rFobAhUdao2K3f-0VSt1NUlCGB9ldcTFNNA1iwDbZBH6rjOOAEGtBCMIJrGCr4CC1WQQiHG2GTttSIRLHMu15lACmAXV4GUTw2iTqjJc9Q7ErV8wGG-HJHF84Mf3QGQdt8FLJaaSUr86h0osxjDsGe5oMgfOnxQZpfWl2e38o5xaXsLj74szuDR8At--5scLNK_scYdsxXIVlckpDrAOmOpT8x-CS0Fx8xofambvoA6SvJnmV1EyO7np6uhDX3fU-rJQbwfmXB7-oR1hOz-rbGf18nvCs19Ry2XrQB17DHmw35ShJawh6oRmAMi_-MhRODouD1wFTKHrma_LzCemhUfBRn-_UTZCsh-1veJ3R9shbn3pAX2ZN7xOOrCpeCwBw8dIDHy-8HflC009Va94oYFD4dqkDB7djfbRGVMSO2eKC5QuiKNpOjm-cGlTl6BuXlXxJOudf1_R3GZCLB40pn1Q0YAlDdTnksMdElsknwgAZ7Md_0_6A4l6C79zSkrLNOvHB-EN_vrIhnb8pTAtOXrT-S5hyWBBXogg5wTPDhbLYaGVeRrUyUURiGlv8b28kr7ajP1G0V4djGMMjuGo8-z6PsT7K1CUOlAi9M-s-bQNzn8K4obMTn-rtpiPfSPz1Bxs50_4-GeIszY8OJ-ZRZ7xUKR8Y3hZtKRv71zfMBkM6BvFr9HnW9aWz5yWW9DN0egzZIt1Fb_VN4m2Plm5yMTWX4wviqLjcqpDC_syRSoxfMRXB58P0FMOmLmmULnqL7y4mMMKgX9jWZspV6tDcsV0kN36YE--zFImv2Gy7L1mWAw0OVR-AI2chk3dRy13wb43uUP7RXfbNs5HtIdd-Otld_9pNQzq_RPeguDHdHDrgdMn4w1rIyCnSAgqiRz9zV05NZB6pQbqbiPgZEJye_8AmBLhPOSRwv8QoNofbpzgvDQZWMGsiVtJqQfO8VSquFkM-FAJDYWj9Be6hBLSrd8WmA8Cr_m2WON0bo-nLGC7dE6yWJV9hPgc_KwqT3H8xlkhRioLTC6WOe3_niZ11qu4rNWnAD7crX26sOsufulrE8SmBZbvHMT3Vop_oKfMcbfHR41RzJikD7_fbCanFncthVVcBYpRdvBRRA1kZBJFFIwfxXoaFim7v9kilh8X4zAFW61gAjKysaXVIiuFj43G30OBFBkn7du0ilI3g0tj5Bc3E.5tZaqZcUSM6AeaWoanzSJw"
 
 vlzConnector:
-  repoUrl: https://signup.volumez.com/connector/
+  repoUrl: https://volumez-qa-connector-repo.s3.amazonaws.com/connector/AWS_Validate_TP_CF_v1.0_5747
   # empty if .vlzEndpoint.websocketId is set
   domain: connector.volumez.com
 
@@ -48,3 +48,4 @@ csiAttacherVlzplugin:
   nodeSelector:
 
 
+vlzDriverNamespace: "vlz-csi-driver"

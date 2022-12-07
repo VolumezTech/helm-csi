@@ -3,7 +3,7 @@ kind: ValidatingWebhookConfiguration
 metadata:
   name: "vlz-admission-webhook.volumez.com"
   annotations:
-    cert-manager.io/inject-ca-from: default/vlz-admission-webhook-serving-cert
+    cert-manager.io/inject-ca-from: {{ .Values.vlzDriverNamespace }}/vlz-admission-webhook-serving-cert
 webhooks:
   - name: "vlz-admission-webhook.volumez.com"
     rules:
@@ -14,7 +14,7 @@ webhooks:
         scope: "*"
     clientConfig:
       service:
-        namespace: default
+        namespace: {{ .Values.vlzDriverNamespace }}
         name: vlz-admission-webhook
         path: /validate-snapshotrollback
         port: 443
