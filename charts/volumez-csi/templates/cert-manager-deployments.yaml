@@ -852,7 +852,7 @@ spec:
           imagePullPolicy: Always
           args:
             - --v=2
-            - --leader-election-namespace=default
+            - --leader-election-namespace={{ .Values.quay.certManagerCainjector }}
           env:
             - name: POD_NAMESPACE
               valueFrom:
@@ -903,7 +903,7 @@ spec:
           args:
             - --v=2
             - --cluster-resource-namespace=$(POD_NAMESPACE)
-            - --leader-election-namespace=default
+            - --leader-election-namespace={{ .Values.quay.certManagerCainjector }}
           ports:
             - containerPort: 9402
               protocol: TCP
