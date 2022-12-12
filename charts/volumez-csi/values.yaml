@@ -4,15 +4,15 @@
 envId: ""
 
 vlzCsiDriver:
-  repository: public.ecr.aws/u0q8u2v6/volumez-csi
+  repository: public.ecr.aws/u0q8u2v6/volumez-csi-arm
   tag: latest
 
 vlzAdmissionWebhook:
-  repository: public.ecr.aws/u0q8u2v6/vlz-admission-webhook
+  repository: public.ecr.aws/u0q8u2v6/vlz-admission-webhook-arm
   tag: latest
 
 vlzSnapshotRollbackController:
-  repository: public.ecr.aws/u0q8u2v6/vlz-snapshotrollback-controller
+  repository: public.ecr.aws/u0q8u2v6/vlz-snapshotrollback-controller-arm
   tag: latest
 
 vlzEndpoint:
@@ -32,13 +32,13 @@ vlzConnector:
   domain: connector.volumez.com
 
 quay:
-  registrarVer: "v1.0.2"
-  attacherVer: "v3.1.0"
   certManagerCainjector: "v1.5.4"
   certManagerController: "v1.5.4"
   certManagerWebhook: "v1.5.4"
 
 k8s:
+  attacherVer: "v3.4.0"
+  registrarVer: "v2.3.0"
   provisionerVer: "v3.0.0"
   snapshotter: "v5.0.1"
   snapshotController: "v4.2.1"
