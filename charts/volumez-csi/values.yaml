@@ -46,5 +46,9 @@ k8s:
 csiAttacherVlzplugin: 
   tolerations: 
   nodeSelector:
+    
+csiNodeVlzplugin:
+  tolerations:
+  nodeSelector:    
 
 vlzDriverNamespace: "vlz-csi-driver"
