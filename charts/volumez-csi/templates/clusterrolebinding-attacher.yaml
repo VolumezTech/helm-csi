@@ -5,7 +5,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: csi-attacher
-    namespace: default
+    namespace: {{ .Values.vlzDriverNamespace }}
 roleRef:
   kind: ClusterRole
   name: external-attacher-runner
