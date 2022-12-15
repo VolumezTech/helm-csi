@@ -2,6 +2,7 @@ kind: StatefulSet
 apiVersion: apps/v1
 metadata:
   name: csi-attacher-vlzplugin
+  namespace: {{ .Values.vlzDriverNamespace }}
 spec:
   serviceName: "csi-attacher"
   replicas: 1
@@ -109,7 +110,7 @@ spec:
             - name: RUN_CONNECTOR
               value: 'false'
             - name: connector_download_repository_base_url
-              value: "{{ .Values.vlzConnector.repo }}"
+              value: "{{ .Values.vlzConnector.repoUrl }}"
             - name: ENV_ID
               value: "{{ .Values.envId }}"
 

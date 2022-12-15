@@ -616,7 +616,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: cert-manager-cainjector:leaderelection
-  namespace: default
+  namespace: {{ .Values.vlzDriverNamespace }}
   labels:
     app: cainjector
     app.kubernetes.io/name: cainjector
@@ -650,7 +650,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: cert-manager:leaderelection
-  namespace: default
+  namespace: {{ .Values.vlzDriverNamespace }}
   labels:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
@@ -705,7 +705,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: cert-manager-cainjector:leaderelection
-  namespace: default
+  namespace: {{ .Values.vlzDriverNamespace }}
   labels:
     app: cainjector
     app.kubernetes.io/name: cainjector
@@ -728,7 +728,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: cert-manager:leaderelection
-  namespace: default
+  namespace: {{ .Values.vlzDriverNamespace }}
   labels:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
@@ -852,7 +852,7 @@ spec:
           imagePullPolicy: Always
           args:
             - --v=2
-            - --leader-election-namespace=default
+            - --leader-election-namespace={{ .Values.vlzDriverNamespace }}
           env:
             - name: POD_NAMESPACE
               valueFrom:
@@ -903,7 +903,7 @@ spec:
           args:
             - --v=2
             - --cluster-resource-namespace=$(POD_NAMESPACE)
-            - --leader-election-namespace=default
+            - --leader-election-namespace={{ .Values.vlzDriverNamespace }}
           ports:
             - containerPort: 9402
               protocol: TCP

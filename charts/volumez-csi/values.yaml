@@ -47,4 +47,4 @@ csiAttacherVlzplugin:
   tolerations: 
   nodeSelector:
 
-
+vlzDriverNamespace: "vlz-csi-driver"
