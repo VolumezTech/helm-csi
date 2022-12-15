@@ -126,4 +126,12 @@ spec:
         - name: systemd
           hostPath: 
             path: /run/dbus
-            type: Directory    
+            type: Directory
+{{- if .Values.csiNodeVlzplugin.tolerations }}
+      tolerations:
+{{ toYaml .Values.csiNodeVlzplugin.tolerations | indent 8 }}
+{{- end -}}
+{{- if .Values.csiNodeVlzplugin.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.csiNodeVlzplugin.nodeSelector | indent 8 }}
+{{- end -}}
