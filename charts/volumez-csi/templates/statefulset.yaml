@@ -2,7 +2,7 @@ kind: StatefulSet
 apiVersion: apps/v1
 metadata:
   name: csi-attacher-vlzplugin
-  namespace: {{ .Values.vlzDriverNamespace }}
+  namespace: {{ .Release.Namespace }}
 spec:
   serviceName: "csi-attacher"
   replicas: 1
