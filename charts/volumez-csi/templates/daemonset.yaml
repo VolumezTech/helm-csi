@@ -16,7 +16,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
         - name: node-driver-registrar
-          image: quay.io/k8scsi/csi-node-driver-registrar:{{ .Values.quay.registrarVer }}
+          image: k8s.gcr.io/sig-storage/csi-node-driver-registrar:{{ .Values.k8s.registrarVer }}
           lifecycle:
             preStop:
               exec:

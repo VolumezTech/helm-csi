@@ -52,7 +52,7 @@ spec:
               mountPath: /csi          
 
         - name: csi-attacher
-          image: quay.io/k8scsi/csi-attacher:{{ .Values.quay.attacherVer }}
+          image: k8s.gcr.io/sig-storage/csi-attacher:{{ .Values.k8s.attacherVer }}
           args:
             - "--v=5"
             - "--csi-address=$(ADDRESS)"
