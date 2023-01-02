@@ -67,7 +67,6 @@ spec:
 
         - name: vlz-snapshotrollback-controller
           image: "{{ .Values.vlzSnapshotRollbackController.repository }}:{{ .Values.vlzSnapshotRollbackController.tag }}"
-          imagePullPolicy: "Always"
           args:
             - "--volumezendpoint=$(VOLUMEZ_ENDPOINT)"
             - "--volumezEndpointBasePath=$(VOLUMEZ_ENDPOINT_BASE_PATH)"
@@ -119,7 +118,6 @@ spec:
               mountPath: /plugin
 
         - image: "{{ .Values.vlzAdmissionWebhook.repository }}:{{ .Values.vlzAdmissionWebhook.tag }}"
-          imagePullPolicy: "Always"
           name: vlz-admission-webhook
           env:
             - name: TLS

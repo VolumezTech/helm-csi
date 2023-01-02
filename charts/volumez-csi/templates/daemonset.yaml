@@ -81,9 +81,6 @@ spec:
               value: "{{ .Values.vlzEndpoint.websocketId }}"
             - name: ENV_ID
               value: "{{ .Values.envId }}"
-
-
-          imagePullPolicy: "Always"
           volumeMounts:
             - name: plugin-dir
               mountPath: /plugin
