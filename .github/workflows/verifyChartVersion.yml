@@ -1,0 +1,26 @@
+name: Verify Chart Version
+on: 
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  verify-chart-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Verify Chart Version
+        run: |
+          # Get the current version number from Chart.yaml
+          current_version=$(grep '^version:' ../../charts/volumez-csi/Chart.yaml | awk '{print $2}')
+
+          # Get the base commit SHA for the pull request
+          base_commit=$(jq .pull_request.base.sha -r "$GITHUB_EVENT_PATH")
+
+          # Get the version number from Chart.yaml in the base commit
+          previous_version=$(git show $base_commit:../../charts/volumez-csi/Chart.yaml | grep '^version:' | awk '{print $2}')
+
+          # Compare the current and previous versions
+          if [[ "$current_version" <= "$previous_version" ]]; then
+            echo "Error: Chart version not incremented. Expected a version higher than $previous_version but got $current_version"
+            exit 1
+          fi
