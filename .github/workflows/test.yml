@@ -23,15 +23,17 @@ jobs:
       - uses: actions/checkout@v3
       - name: Verify Chart Version
         run: |
-          pwd
-          ls
           # Get the current version number from Chart.yaml
           current_version=$(grep '^version:' charts/volumez-csi/Chart.yaml | awk '{print $2}')
+          echo $current_version
 
           # Get the base commit SHA for the pull request
           base_commit=$(jq .pull_request.base.sha -r "$GITHUB_EVENT_PATH")
+          echo $base_commit
 
           # Get the version number from Chart.yaml in the base commit
+          git show $base_commit
+          git show $base_commit:charts/volumez-csi/Chart.yaml
           previous_version=$(git show $base_commit:charts/volumez-csi/Chart.yaml | grep '^version:' | awk '{print $2}')
 
           # Compare the current and previous versions
