@@ -26,13 +26,13 @@ jobs:
           pwd
           ls
           # Get the current version number from Chart.yaml
-          current_version=$(grep '^version:' volumez-csi/Chart.yaml | awk '{print $2}')
+          current_version=$(grep '^version:' charts/volumez-csi/Chart.yaml | awk '{print $2}')
 
           # Get the base commit SHA for the pull request
           base_commit=$(jq .pull_request.base.sha -r "$GITHUB_EVENT_PATH")
 
           # Get the version number from Chart.yaml in the base commit
-          previous_version=$(git show $base_commit:volumez-csi/Chart.yaml | grep '^version:' | awk '{print $2}')
+          previous_version=$(git show $base_commit:charts/volumez-csi/Chart.yaml | grep '^version:' | awk '{print $2}')
 
           # Compare the current and previous versions
           if [[ "$current_version" <= "$previous_version" ]]; then
