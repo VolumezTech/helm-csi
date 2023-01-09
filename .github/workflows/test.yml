@@ -32,7 +32,7 @@ jobs:
           echo $base_commit
 
           # Get the version number from Chart.yaml in the base commit
-          git fetch $base_commit
+          git fetch &> /dev/null
           previous_version=$(git show $base_commit:charts/volumez-csi/Chart.yaml | grep '^version:' | awk '{print $2}')
 
           # Compare the current and previous versions
