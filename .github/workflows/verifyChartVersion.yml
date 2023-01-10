@@ -1,0 +1,38 @@
+name: Verify Chart Version
+
+on:
+  # Triggers the workflow on push or pull request events but only for the "development" branch
+  push:
+    branches: [ "development" ]
+  pull_request:
+    branches: [ "development" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "verifyChartVersion"
+  verifyChartVersion:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Verify Chart Version
+        run: |
+          # Get the current version number from Chart.yaml
+          current_version=$(grep '^version:' charts/volumez-csi/Chart.yaml | awk '{print $2}')
+          
+          # Get the base commit SHA for the pull request
+          base_commit=$(jq .pull_request.base.sha -r "$GITHUB_EVENT_PATH")
+          
+          # Get the version number from Chart.yaml in the base commit
+          git fetch &> /dev/null
+          previous_version=$(git show $base_commit:charts/volumez-csi/Chart.yaml | grep '^version:' | awk '{print $2}')
+          
+          # Compare the current and previous versions
+          function ver { printf "%03d%03d%03d%03d" $(echo "$1" | tr '.' ' '); }
+          if [ $(ver $current_version) -le $(ver $previous_version) ]; then
+            echo "Error: Chart version not incremented. Expected a version higher than $previous_version but got $current_version"
+            exit 1
+          fi
