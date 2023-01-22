@@ -5,12 +5,12 @@ envId: ""
 
 vlzCsiDriver:
   repository: public.ecr.aws/u0q8u2v6/volumez-csi
-  tag: 5.5.5
+  tag: 1.2.0
   fsGroupPolicy: File
 
 vlzAdmissionWebhook:
   repository: public.ecr.aws/u0q8u2v6/vlz-admission-webhook
-  tag: 7.7.7
+  tag: 7.1.3
 
 vlzSnapshotRollbackController:
   repository: public.ecr.aws/u0q8u2v6/vlz-snapshotrollback-controller
