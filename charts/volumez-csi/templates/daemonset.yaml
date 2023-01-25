@@ -98,6 +98,8 @@ spec:
               name: dev
             - mountPath: /run/dbus
               name: systemd
+            - mountPath: /tmp/volumez
+              name: connector-config
       volumes:
         - name: plugin-dir
           hostPath:
@@ -127,6 +129,9 @@ spec:
           hostPath: 
             path: /run/dbus
             type: Directory
+        - name: connector-config
+          emptyDir:
+            sizeLimit: 1Mi
 {{- if .Values.csiNodeVlzplugin.tolerations }}
       tolerations:
 {{ toYaml .Values.csiNodeVlzplugin.tolerations | indent 8 }}
