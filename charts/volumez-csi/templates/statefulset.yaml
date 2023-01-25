@@ -43,6 +43,8 @@ spec:
             - "--extra-create-metadata"   
             - "--feature-gates=Topology=true"
             - "--timeout=60s"            
+            - "--retry-interval-start=1m"
+            - "--retry-interval-max=40m"
           env:
             - name: ADDRESS
               value: /csi/csi.sock
@@ -82,6 +84,7 @@ spec:
 
         - name: vlz
           image: "{{ .Values.vlzCsiDriver.repository }}:{{ .Values.vlzCsiDriver.tag }}"
+          imagePullPolicy: "Always"
           args :
             - "--nodeid=$(NODE_ID)"
             - "--endpoint=$(CSI_ENDPOINT)"
