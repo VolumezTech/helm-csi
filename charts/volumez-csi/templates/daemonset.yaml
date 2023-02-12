@@ -58,6 +58,7 @@ spec:
             - "--connector_api_domain=$(CONNECTOR_API_DOMAIN)"
             - "--websocket_id=$(WEBSOCKET_ID)"      
             - "--env_id=$(ENV_ID)"
+            - "--v=$(VERBOSE_LEVEL)"
           env:
             - name: NODE_ID
               valueFrom:
@@ -81,6 +82,8 @@ spec:
               value: "{{ .Values.vlzEndpoint.websocketId }}"
             - name: ENV_ID
               value: "{{ .Values.envId }}"
+            - name: VERBOSE_LEVEL
+              value: "{{ .Values.verboseLevel }}"
 
 
           imagePullPolicy: "Always"
