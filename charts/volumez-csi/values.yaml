@@ -1,7 +1,7 @@
 # Default values for volumez-csi.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-envId: "avivl_dev_1-3GSQEJ"
+envId: ""
 
 vlzCsiDriver:
   repository: public.ecr.aws/u0q8u2v6/volumez-csi
@@ -18,18 +18,18 @@ vlzSnapshotRollbackController:
 
 vlzEndpoint:
   # <custom-id>.execute-api.<region>.amazonaws.com
-  apiUrl: fbufaxeyyi.execute-api.us-east-1.amazonaws.com
+  apiUrl: api.volumez.com
   # "dev"
-  basePath: "dev"
+  basePath: ""
   # <websocket-id>
   websocketId: ""
 
 # CSI Driver Token (Refresh Token)
-vlzAuthToken: "eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAifQ.qAEfS-4jrDhCsHmRzsF6JkEiPN1IovA2DmAWD4v7jkWlk-X9SnAn1iB_n50KRP6C-7o5TiR3hjeotEepI4-bORsdujbjdDQATPoKAOREfnNPDxOBy0BBkmXi9TEydB69N5b13PgWhOPYbnZvjE1mEJ_NuG7OrOGQu04tmk_2IzBPPldBh-me3mvUAcUQCvW_8yIJEGrfKjB3C9gbmN_PrJraYmMM1e-s9Jm9-93nmcuAdW5RPQMHwaT27LDulXF9imruFcLocTRHc2Mf8HL5KEuEISm8cMan9OmK82fJF0F5q-wQFnJ44GpAF9Odtp6rsJNrqvJLLecbjHMPlk9naQ.gQFLXcpwfO9GiMnq.AmgvJRhWrI5zakXiU9f109BvtUxRTl_CacJRY2P0zDdq7vjPMiPHzbj93QfbSnqrSfIdRxSDKbneLOQ2_H8v2x-iKUM8BdWynhrsRiFjVukzGZIMUaXjcaOxwhecLjm0OyDqDoyXFBDuvzQJ0SEPgthkx6KRe87Ctw3wuVBZJUyJxEkCQMgwiESenw4WtAEGzlUSyz2ipwC3fCk-D1U06pAMgK4j-xCCbht9oRnYEPetU5FFhM4NPGUH17RzRPB3cDkKHJz93aTsK4oJrS1fBYk5s5oCIv_g2VMP7MDcOo6N_-TuKTe5zaw2NCo5Zyk81nY2X0_-nQ0kEQkivlxbVJxlkZOUQpCVnP6C2-eij7lNIk7eZXI9cBYbfCpD07jEs5uNlWMKdbXVlEctF3P9bXAie5_L3pGqz2tezeI-WZG3Sa9kENFNAUW87cwoBCG6E6VH7YYI4tN5k7Kq-oeg27NKA9391jkW0l6-gqGqtGZlUgSpnxGl8OsDyx_iXWchQKS4OPSS_cIj5yDJCyxdFtF0cWvMOn5R0XdIYhcSSvXoZrKC0rk6Z4BKfAckzcy5xwChTptoqljG2MJOa7e4_My65X2mHP1MV_cP8yWEvcMCjq4nnWYkic6Jp5eKvC5wdp187udykmhBp7y-qwPty2Y3X3WmTr4DwR3s3xKe3oL-y-g56rHmANAgk9VGatU9Dlpc2tvi0mmFhdBD3vkfip3ZqprYWpOJCRpKCJyb_RaJjrcHrqG6N5nNo5Cu6eFOzeY9ZjTQyZO0P1d8lzwDPPT12k8K7UhL5Nv6WCUn7u5H7EtofhHKysdj40fNvCXPnqQNkPHFb4PoVqUzkyLylzsUjwFqKrUl7yYMi_tQqXAcT3YkLfSMmR7LSc4IZsI_HBGR4U3jBhy6rJgkyCDGlIOiTBPd0Cfcv2SwipT_vU3FrVTVRevBoWizMyNISakvHbKlRpTJvzdOupw9DXQLUyAu7-Y_NoNU2cXe9DQ1vIDdOsFYbAfnyBCZ0svEeaS1rld1f9PfuleFyxJMIbt82HCN_QwqA99681_yZr0B7urwg2LvoEdJEUT7gLcBUqDBDklDlxEOfrDJnBMV3kw5tmWl7XHqJQghVGFJIZHP5vJYb0e0HU3Gs6louwZ1evo_A_u5PBuE5hB0FyNCDXkHnfLK3oXKHPtaosZrMICHuPOjd_U1JYRiM8Hw0lPVFwVi_5ntOpl4aS0TbJbVlNtQulFfXMpryqJaVd0HKGVsOLES36TDL2-SuL7UWCBK5mUz9GtgLmVs27roqw-fkHpq36b8L-Y7e3CjR5zfOztbMiqgH2AHU1e2j8dVaLs.vdWiHon_ainSZ69RW7hoEw"
+vlzAuthToken: ""
 verboseLevel: 0
 
 vlzConnector:
-  repoUrl: https://volumez-qa-connector-repo.s3.amazonaws.com/connector/AWS_Validate_TP_CF_v1.0_715
+  repoUrl: https://signup.volumez.com/connector/
   # empty if .vlzEndpoint.websocketId is set
   domain: connector.volumez.com
 
