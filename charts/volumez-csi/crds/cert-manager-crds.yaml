@@ -56,7 +56,7 @@ spec:
         #
         service:
           name: 'cert-manager-webhook'
-          namespace: "vlz-cert-manager"
+          namespace: "cert-manager"
           path: /convert
           #
   versions:
@@ -784,7 +784,7 @@ spec:
         #
         service:
           name: 'cert-manager-webhook'
-          namespace: "vlz-cert-manager"
+          namespace: "cert-manager"
           path: /convert
           #
   versions:
@@ -2103,7 +2103,7 @@ spec:
         #
         service:
           name: 'cert-manager-webhook'
-          namespace: "vlz-cert-manager"
+          namespace: "cert-manager"
           path: /convert
           #
   versions:
@@ -5978,7 +5978,7 @@ spec:
         #
         service:
           name: 'cert-manager-webhook'
-          namespace: "vlz-cert-manager"
+          namespace: "cert-manager"
           path: /convert
           #
   versions:
@@ -10703,7 +10703,7 @@ spec:
         #
         service:
           name: 'cert-manager-webhook'
-          namespace: "vlz-cert-manager"
+          namespace: "cert-manager"
           path: /convert
           #
   versions:
@@ -15429,7 +15429,7 @@ spec:
         #
         service:
           name: 'cert-manager-webhook'
-          namespace: "vlz-cert-manager"
+          namespace: "cert-manager"
           path: /convert
           #
   versions:
