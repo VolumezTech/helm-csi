@@ -10,11 +10,11 @@ vlzCsiDriver:
 
 vlzAdmissionWebhook:
   repository: public.ecr.aws/u0q8u2v6/vlz-admission-webhook
-  tag: v1.0.0
+  tag: 1.0.0
 
 vlzSnapshotRollbackController:
   repository: public.ecr.aws/u0q8u2v6/vlz-snapshotrollback-controller
-  tag: v1.0.0
+  tag: 1.0.0
 
 vlzEndpoint:
   # <custom-id>.execute-api.<region>.amazonaws.com
@@ -52,5 +52,3 @@ csiAttacherVlzplugin:
 csiNodeVlzplugin:
   tolerations:
   nodeSelector:
-
-certManagerNamespace: "vlz-cert-manager"
