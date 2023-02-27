@@ -12,7 +12,8 @@ the latest versions of the packages.
 You can then run `helm search repo volumez-csi` to see the charts.
 
 To install the volumez-csi chart:
-
+    
+    helm dependency build
     helm install my-volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --create-namespace 
 
 To uninstall the chart:
