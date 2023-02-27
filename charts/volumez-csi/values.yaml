@@ -45,10 +45,13 @@ k8s:
   snapshotter: "v5.0.1"
   snapshotController: "v4.2.1"
 
-csiAttacherVlzplugin: 
-  tolerations: 
+csiAttacherVlzplugin:
+  tolerations:
   nodeSelector:
-    
+
 csiNodeVlzplugin:
   tolerations:
   nodeSelector:
+
+certmanager:
+  namespace: vlz-cert-manager
