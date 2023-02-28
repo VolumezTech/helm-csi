@@ -54,5 +54,7 @@ csiNodeVlzplugin:
   nodeSelector:
 
 certmanager:
-  namespace: cert-manager
+  namespace: vlz-cert-manager
   installCRDs: true
+  webhook:
+    hostNetwork: true
