@@ -4,6 +4,10 @@ kind: Service
 metadata:
   labels:
     app: vlz-admission-webhook
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "1"
+
   name: vlz-admission-webhook
   namespace: {{ .Release.Namespace }}
 spec:

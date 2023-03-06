@@ -52,3 +52,7 @@ csiAttacherVlzplugin:
 csiNodeVlzplugin:
   tolerations:
   nodeSelector:
+
+certmanager:
+  namespace: vlz-cert-manager
+  installCRDs: true
