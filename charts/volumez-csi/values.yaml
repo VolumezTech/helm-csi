@@ -33,17 +33,16 @@ vlzConnector:
   # empty if .vlzEndpoint.websocketId is set
   domain: connector.volumez.com
 
-quay:
-  certManagerCainjector: "v1.5.4"
-  certManagerController: "v1.5.4"
-  certManagerWebhook: "v1.5.4"
-
 k8s:
   attacherVer: "v3.4.0"
   registrarVer: "v2.3.0"
   provisionerVer: "v3.0.0"
   snapshotter: "v5.0.1"
   snapshotController: "v4.2.1"
+  args:
+    retryInterval:
+      start: "1m"
+      max: "40m"
 
 csiAttacherVlzplugin: 
   tolerations: 
