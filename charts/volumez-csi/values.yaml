@@ -39,10 +39,6 @@ k8s:
   provisionerVer: "v3.0.0"
   snapshotter: "v5.0.1"
   snapshotController: "v4.2.1"
-  args:
-    retryInterval:
-      start: "1m"
-      max: "40m"
 
 csiAttacherVlzplugin: 
   tolerations: 

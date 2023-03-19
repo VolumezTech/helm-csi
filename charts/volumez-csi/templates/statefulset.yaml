@@ -23,8 +23,8 @@ spec:
             - "--v=5"
             - "--csi-address=$(ADDRESS)"
             - "--timeout=60s"
-            - "--retry-interval-start={{ .Values.k8s.args.retryInterval.start }}"
-            - "--retry-interval-max={{ .Values.k8s.args.retryInterval.max }}"
+            - "--retry-interval-start=1m"
+            - "--retry-interval-max=40m"
           env:
             - name: ADDRESS
               value: /csi/csi.sock
@@ -46,8 +46,8 @@ spec:
             - "--extra-create-metadata"
             - "--feature-gates=Topology=true"
             - "--timeout=60s"
-            - "--retry-interval-start={{ .Values.k8s.args.retryInterval.start }}"
-            - "--retry-interval-max={{ .Values.k8s.args.retryInterval.max }}"
+            - "--retry-interval-start=1m"
+            - "--retry-interval-max=40m"
           env:
             - name: ADDRESS
               value: /csi/csi.sock
@@ -62,8 +62,8 @@ spec:
             - "--v=5"
             - "--csi-address=$(ADDRESS)"
             - "--timeout=200s"
-            - "--retry-interval-start={{ .Values.k8s.args.retryInterval.start }}"
-            - "--retry-interval-max={{ .Values.k8s.args.retryInterval.max }}"
+            - "--retry-interval-start=1m"
+            - "--retry-interval-max=40m"
           env:
             - name: ADDRESS
               value: /csi/csi.sock
