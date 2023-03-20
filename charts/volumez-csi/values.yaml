@@ -33,11 +33,6 @@ vlzConnector:
   # empty if .vlzEndpoint.websocketId is set
   domain: connector.volumez.com
 
-quay:
-  certManagerCainjector: "v1.5.4"
-  certManagerController: "v1.5.4"
-  certManagerWebhook: "v1.5.4"
-
 k8s:
   attacherVer: "v3.4.0"
   registrarVer: "v2.3.0"
