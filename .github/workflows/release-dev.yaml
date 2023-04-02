@@ -28,6 +28,6 @@ jobs:
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.1.0
         with:
-          release_name: volumez-csi-dev
+          charts_repo_url: https://github.com/VolumezTech/helm-csi/tree/gh-pages-dev
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
