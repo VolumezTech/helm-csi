@@ -43,8 +43,8 @@ jobs:
       
       - name: Commit changes
         run: |
-          git config user.email "actions@github.com"
-          git config user.name "GitHub Actions"
+          git config user.email "info@volumez.com"
+          git config user.name "VolumezTech"
           git commit -a -m "Update chart version to ${{ steps.update_chart_version.outputs.NEW_CHART_VERSION }}"
       
       - name: Push changes
