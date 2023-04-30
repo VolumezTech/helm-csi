@@ -2,14 +2,14 @@ name: Release Charts Dev
 
 on:
   pull_request:
-    types: [closed]
+    types: [opened]
     branches:
       - development
 
 jobs:
   updateChartVersion:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
+    #if: github.event.pull_request.merged == true
     steps:
       - uses: actions/checkout@v3
         with:
