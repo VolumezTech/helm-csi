@@ -5,7 +5,7 @@ envId: ""
 
 vlzCsiDriver:
   repository: public.ecr.aws/u0q8u2v6/volumez-csi
-  tag: v1.2.0
+  tag: v1.3.0-rc.1
   fsGroupPolicy: File
 
 vlzAdmissionWebhook:
