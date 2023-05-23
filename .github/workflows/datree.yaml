@@ -1,0 +1,31 @@
+on:
+  push:
+    branches: [ development ]
+  pull_request:
+    branches: [ development ]
+    
+env:
+  DATREE_TOKEN: ${{ secrets.DATREE_TOKEN }} 
+
+jobs:
+  k8sPolicyCheck:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Dependency build
+        id: helm_dependency_build
+        run: |
+          cd charts/volumez-csi
+          helm repo add jetstack https://charts.jetstack.io
+          helm dependency build
+        
+      - name: Run Datree Policy Check
+        uses: datreeio/action-datree@main
+        with:
+          path: 'charts/volumez-csi'
+          cliArguments: '--only-k8s-files'
+          isHelmChart: true
+          helmArguments: '--values charts/volumez-csi/values.yaml'
