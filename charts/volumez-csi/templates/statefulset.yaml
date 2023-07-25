@@ -61,8 +61,8 @@ spec:
           args:
             - "--v=5"
             - "--csi-address=$(ADDRESS)"
-            - "--timeout=200s"
-            - "--retry-interval-start=1m"
+            - "--timeout=1s"
+            - "--retry-interval-start=1s"
             - "--retry-interval-max=40m"
           env:
             - name: ADDRESS
