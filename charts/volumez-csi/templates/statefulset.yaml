@@ -45,7 +45,7 @@ spec:
             - "--csi-address=$(ADDRESS)"
             - "--extra-create-metadata"
             - "--feature-gates=Topology=true"
-            - "--timeout=60s"
+            - "--timeout=320s"
             - "--retry-interval-start=1m"
             - "--retry-interval-max=40m"
           env:
@@ -101,6 +101,7 @@ spec:
             - "--connector_api_domain=$(CONNECTOR_API_DOMAIN)"
             - "--websocket_id=$(WEBSOCKET_ID)"
             - "--env_id=$(ENV_ID)"
+            - "--v=$(VERBOSE_LEVEL)"
 
           env:
             - name: NODE_ID
@@ -121,6 +122,8 @@ spec:
               value: "{{ .Values.vlzConnector.repoUrl }}"
             - name: ENV_ID
               value: "{{ .Values.envId }}"
+            - name: VERBOSE_LEVEL
+              value: "{{ .Values.verboseLevel }}"
 
           volumeMounts:
             - name: socket-dir
