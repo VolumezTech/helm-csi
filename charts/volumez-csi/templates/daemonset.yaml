@@ -12,15 +12,6 @@ spec:
       labels:
         app: csi-nodeplugin-vlzplugin
     spec:
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: avoid-csi
-                operator: NotIn
-                values:
-                - "true"
       serviceAccountName: csi-nodeplugin
       terminationGracePeriodSeconds: 30
       containers:
@@ -151,4 +142,8 @@ spec:
 {{- if .Values.csiNodeVlzplugin.nodeSelector }}
       nodeSelector:
 {{ toYaml .Values.csiNodeVlzplugin.nodeSelector | indent 8 }}
+{{- end -}}
+{{- if .Values.csiNodeVlzplugin.affinity }}
+      affinity:
+{{ toYaml .Values.csiNodeVlzplugin.affinity | indent 8 }}
 {{- end -}}
