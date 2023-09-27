@@ -47,6 +47,7 @@ csiAttacherVlzplugin:
 csiNodeVlzplugin:
   tolerations:
   nodeSelector:
+  affinity:
 
 certmanager:
   namespace: vlz-cert-manager

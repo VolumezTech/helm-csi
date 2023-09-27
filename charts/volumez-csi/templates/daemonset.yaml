@@ -143,3 +143,7 @@ spec:
       nodeSelector:
 {{ toYaml .Values.csiNodeVlzplugin.nodeSelector | indent 8 }}
 {{- end -}}
+{{- if .Values.csiNodeVlzplugin.affinity }}
+      affinity:
+{{ toYaml .Values.csiNodeVlzplugin.affinity | indent 8 }}
+{{- end -}}
