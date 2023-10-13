@@ -5,16 +5,16 @@ envId: ""
 
 vlzCsiDriver:
   repository: public.ecr.aws/u0q8u2v6/volumez-csi
-  tag: v1.6.0-rc.1
+  tag: v1.6.0
   fsGroupPolicy: File
 
 vlzAdmissionWebhook:
   repository: public.ecr.aws/u0q8u2v6/vlz-admission-webhook
-  tag: v1.1.0-rc.1
+  tag: v1.1.0
 
 vlzSnapshotRollbackController:
   repository: public.ecr.aws/u0q8u2v6/vlz-snapshotrollback-controller
-  tag: v1.2.0-rc.1
+  tag: v1.2.0
 
 vlzEndpoint:
   # <custom-id>.execute-api.<region>.amazonaws.com
