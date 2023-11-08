@@ -15,7 +15,8 @@ jobs:
         id: rc-check
         run: |
           pattern="^rc/"
-          branches=$(git ls-remote --heads origin | cut -f2 | sed 's#refs/heads/##')
+          git remote add repo-origin ${{ github.repository_url }}.git
+          branches=$(git ls-remote --heads repo-origin | cut -f2 | sed 's#refs/heads/##')
           for branch in $branches; do
             if [[ $branch =~ $pattern ]]; then
               echo "Error: Merging to development is not allowed while rc branches exist in the repository."
