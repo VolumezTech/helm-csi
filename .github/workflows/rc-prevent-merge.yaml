@@ -1,0 +1,40 @@
+name: Prevent RC Merge
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for rc branches
+        id: rc-check
+        run: |
+          pattern="^rc/"
+          branches=$(git ls-remote --heads origin | cut -f2 | sed 's#refs/heads/##')
+          for branch in $branches; do
+            if [[ $branch =~ $pattern ]]; then
+              echo "Error: Merging to development is not allowed while rc branches exist in the repository."
+              echo "::set-output name=rc-branch::true"
+              exit 1
+            fi
+          done
+          echo "No rc branches detected. Merging is allowed."
+          echo "::set-output name=rc-branch::false"
+        shell: bash
+
+      - name: Set check status
+        id: check-status
+        run: |
+          rc_branch=${{ steps.rc-check.outputs.rc-branch }}
+          if [[ $rc_branch == "true" ]]; then
+            echo "::error::Merging to development is not allowed while rc branches exist in the repository."
+            exit 1
+          else
+            echo "Merging is allowed."
+          fi
+        shell: bash
