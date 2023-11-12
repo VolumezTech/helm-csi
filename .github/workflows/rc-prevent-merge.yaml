@@ -3,8 +3,9 @@ name: Prevent PR to development with open rc branches
 on:
   pull_request:
     types:
-      - opened
-      - synchronize
+      [opened, reopened, edited, synchronize]
+    branches:
+      - development
 
 jobs:
   prevent_pr_to_development:
