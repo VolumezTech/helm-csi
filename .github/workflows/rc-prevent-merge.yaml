@@ -1,42 +1,31 @@
-name: Prevent RC Merge
+name: Prevent PR to development with open rc branches
 
 on:
   pull_request:
     types:
       - opened
       - synchronize
-      - reopened
 
 jobs:
-  check:
+  prevent_pr_to_development:
     runs-on: ubuntu-latest
-    steps:
-      - name: Check for rc branches
-        id: rc-check
-        run: |
-          pattern="^rc/"
-          branches=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/${{ github.repository }}/branches | jq -r .[].name)
-          for branch in $branches; do
-            if [[ $branch =~ $pattern ]]; then
-              echo "Error: Merging to development is not allowed while rc branches exist in the repository."
-              echo "::set-output name=rc-branch::true"
-              exit 1
-            fi
-          done
-          echo "No rc branches detected. Merging is allowed."
-          echo "::set-output name=rc-branch::false"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set check status
-        id: check-status
-        run: |
-          rc_branch=${{ steps.rc-check.outputs.rc-branch }}
-          if [[ $rc_branch == "true" ]]; then
-            echo "::error::Merging to development is not allowed while rc branches exist in the repository."
-            exit 1
-          else
-            echo "Merging is allowed."
-          fi
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Check for open rc branches
+      id: check_branches
+      run: |
+        open_rc_branches=$(git ls-remote --heads origin 'refs/heads/rc/*' | wc -l)
+        echo "::set-output name=open_rc_branches::$open_rc_branches"
+      shell: bash
+
+    - name: Check if pull request is targeting development
+      id: check_pr_target
+      run: |
+        if [ ${{ steps.check_branches.outputs.open_rc_branches }} -gt 0 ] && [[ ${{ github.event.pull_request.base.ref }} == "development" ]]; then
+          echo "A pull request targeting development cannot be created while there are open 'rc/*' branches."
+          exit 1
+        fi
+      shell: bash
