@@ -1,0 +1,32 @@
+name: Prevent PR to development with open rc branches
+
+on:
+  pull_request:
+    types:
+      [opened, reopened, edited, synchronize]
+    branches:
+      - development
+
+jobs:
+  prevent_pr_to_development:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Check for open rc branches
+      id: check_branches
+      run: |
+        open_rc_branches=$(git ls-remote --heads origin 'refs/heads/rc/*' | wc -l)
+        echo "::set-output name=open_rc_branches::$open_rc_branches"
+      shell: bash
+
+    - name: Check if pull request is targeting development
+      id: check_pr_target
+      run: |
+        if [ ${{ steps.check_branches.outputs.open_rc_branches }} -gt 0 ] && [[ ${{ github.event.pull_request.base.ref }} == "development" ]]; then
+          echo "A pull request targeting development cannot be created while there are open 'rc/*' branches."
+          exit 1
+        fi
+      shell: bash
