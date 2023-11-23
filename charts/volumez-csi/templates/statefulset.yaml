@@ -22,8 +22,8 @@ spec:
           args:
             - "--v=5"
             - "--csi-address=$(ADDRESS)"
-            - "--timeout=60s"
-            - "--retry-interval-start=1m"
+            - "--timeout=90s"
+            - "--retry-interval-start=10s"
             - "--retry-interval-max=40m"
           env:
             - name: ADDRESS
@@ -46,7 +46,7 @@ spec:
             - "--extra-create-metadata"
             - "--feature-gates=Topology=true"
             - "--timeout=320s"
-            - "--retry-interval-start=1m"
+            - "--retry-interval-start=10s"
             - "--retry-interval-max=40m"
           env:
             - name: ADDRESS
@@ -62,7 +62,7 @@ spec:
             - "--v=5"
             - "--csi-address=$(ADDRESS)"
             - "--timeout=200s"
-            - "--retry-interval-start=1m"
+            - "--retry-interval-start=10s"
             - "--retry-interval-max=40m"
           env:
             - name: ADDRESS
