@@ -25,7 +25,8 @@ spec:
             - "--timeout=90s"
             - "--retry-interval-start=10s"
             - "--retry-interval-max=40m"
-          env:
+            - "--enable-volume-group-snapshots=true"
+          env:\
             - name: ADDRESS
               value: /csi/csi.sock
           imagePullPolicy: IfNotPresent
@@ -37,7 +38,14 @@ spec:
           image: registry.k8s.io/sig-storage/snapshot-controller:{{ .Values.k8s.snapshotController }}
           args:
             - "--v=5"
+            - "--enable-volume-group-snapshots=true"
           imagePullPolicy: IfNotPresent
+
+{{/*        - name: csi-snapshot-validation-webhook*/}}
+{{/*          image: registry.k8s.io/sig-storage/snapshot-validation-webhook:{{ .Values.k8s.snapshotValidationWebhook }}*/}}
+{{/*          args:*/}}
+{{/*            - "--v=5"*/}}
+{{/*          imagePullPolicy: IfNotPresent*/}}
 
         - name: csi-provisioner
           image: registry.k8s.io/sig-storage/csi-provisioner:{{ .Values.k8s.provisionerVer }}

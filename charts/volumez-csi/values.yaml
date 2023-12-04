@@ -4,8 +4,8 @@
 envId: ""
 
 vlzCsiDriver:
-  repository: public.ecr.aws/u0q8u2v6/volumez-csi
-  tag: v1.8.0
+  repository: public.ecr.aws/k7c6k5h8/volumez-csi
+  tag: svg-demo
   fsGroupPolicy: File
 
 vlzAdmissionWebhook:
@@ -25,8 +25,8 @@ vlzEndpoint:
   websocketId: ""
 
 # CSI Driver Token (Refresh Token)
-vlzAuthToken: ""
-verboseLevel: 0
+vlzAuthToken: "eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAifQ.b1rOzjbMr9f_GGYCCemBQGnR3thC53gmWda2fb3zVYT6fT9RgTK44YpAgrxehfNs6P7Vu51Aclb18zhYFaL_MHtbxTxNJutegl7NMO2-CZWHhcjuEjdglwMMPc-M0I9cU5Pk5xwgTAMrrx6u4Yvv5LEk_R_id3S1Lb_aBxBIug2UXKyf4FEdcqmdJD4Y7SauH1QE7KcXOr93ChHzVJRDG6c_TGTCzYeVKk8FigGpu55ckg4sDH4QtCAG5S_XKG-pePtDfH-CYTSTWpDVyDhK-DF1QoPPlRq0QDOVB1y-eys0q2w4yvFVebIXGjZqR9_4A160gJBwxDjFc42amcil6w.cAEeClZteCryUT6I.t1SOLCWWDnzg_zEyyGb8j4u6t8-A_ViM8HUdAGxU6GXQFm842INaCCvGtOvSijP9D7676Ey7AU8pNBOyfMA3ILopsVzTd-5X2kPw7VzFXUTXQJy8qrAd_GfCX26PdWatr47mlZGPkCuZ47h6YwuN8pf5rfEyCZ3H0kXvLeYo9Z64ixvlvxO4x2OuZwcSEDu9Y_jR-P69R3TpWLu6qz9K8FDGZxmJjyPfGPX0TMnAS_FX5Kod2uyYNtPGUhdnXFOyvnAKDHpUyFDBi_i2pFuAK2RlbnhZX5xQnK08tdqVN8138ssU5WNOu-mnsbvc7_9e70bykWmEAeICxyIBy4sWcWSvjynD0XS4jFYSy3BC0aQ7HaJhjoJySy7Rm1s_ImeCikL8UYXiISXeZWsetPOriH1UJ03TTJmUeXjNLRzbQhDOtzryzhziFhECopbBD_xxirsK8hQu6tabYoHrRj4ey0iwCSRWA5SZwzMni44F3PcmVlCPB912PyAgTmI7J6bgYTNZLAOsp2uZPqvhHecm6xxaIQG9sYET_wve_qOXDKRZmFn7eQ7FLNTuVCnt4l3vD4nmxlrZY3v-PnD8jcsYCQsI80xdjZn4M606v_n-lT9yGHwZ-Z_hcTpPxK3Ey1ZrwyVIzZ0jHusGcGAEX3JpJ06JZKz32T9WtijIE_mJwPHZEup7Q9QZ0bdtbuDyUHaePLyhJLt83oaSDi93a9XtgVY65Kbts63y8HXaj7M2IMGWYir7xzj7gdRe5YEanGtrFGK90gc4ksITPUFx2O4Q_ChFcuvchkxBr0dxDbcMOLUJCZzndXJeJAPuU61Q4WrBHemTTFtBTSKU0tRdFDsyZaAp1UoPVd-GOI7KzYkxPtx8OgBCgyRXA5MBP8KGNMw813EoIRiACBcHIpqOEp9UU7HJwjgo0wN9cTnNGaYcoBSZEepCTw1cODFGZCVfM-Ydyp2uEuGBKRSAraJHm2_hrlAh7LFbyKFaieXUCmF1eW85vYwU_HAg68cWfTM9Y14GQpwJDxTI2izKEUOKjjNmWkwqRBpixRe1tF729KxgJFcHGSqrsRjBhbnKnten6dG-LgURH7U1fFxu80jD7U_Tm3-JI-GHHte5bU3vgneBIYSoXjklIn2PHA0uuKAw9280PcdIysnDvMkw8b5eo2O4KPITnynjMeRw12vUHsuZQYo0vZKjpPgnldAdD6OtHDHvkC7fMDvq2-ctIfEjcaqHwi3XFsnnltvj4u_AI5rQjW_ee1-bzdgU-zFQvdVRMrTEEdwfVpRAmGaNl5cg6JbC9KJhLL0gAWjzNVl_HGgaRIZMbghdBw3q7z4ttqWJYw.asVF8hR8LLDjCd7tzeM-YQ"
+verboseLevel: 1
 
 vlzConnector:
   repoUrl: https://signup.volumez.com/connector/
@@ -37,8 +37,9 @@ k8s:
   attacherVer: "v3.4.0"
   registrarVer: "v2.3.0"
   provisionerVer: "v3.0.0"
-  snapshotter: "v5.0.1"
-  snapshotController: "v4.2.1"
+  snapshotter: "v6.3.1"
+  snapshotController: "v6.3.1"
+  snapshotValidationWebhook: "v6.3.1"
 
 csiAttacherVlzplugin: 
   tolerations: 
