@@ -15,6 +15,13 @@ To install the volumez-csi chart:
 ```bash
 helm install my-volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --create-namespace --dependency-update
 ```
+
+### Install Only on Specific Node/Node-Group
+To install the volumez-csi on specific node or nodegroup, label the node/nodegroup and add the following to the end of install command (fill in the correct values in <>):
+```bash
+--set-json 'csiNodeVlzplugin.affinity={"nodeAffinity":{"requiredDuringSchedulingIgnoredDuringExecution":{"nodeSelectorTerms":[{"matchExpressions":[{"key":<label-key>,"operator":"In","values":[<label-values>}]}]}}}'
+```
+
 ### Upgrade
 
 If you had already added this repo earlier, run `helm repo update` to retrieve the latest versions of the packages. 
