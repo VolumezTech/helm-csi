@@ -17,7 +17,7 @@ helm install my-volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --create-n
 ```
 
 ### Install Only on Specific Node/Node-Group
-To install the volumez-csi on specific node or nodegroup, label the node/nodegroup and add the following to the end of install command (fill in the correct values instead of <label-key> and <label-values>):
+To install the volumez-csi on specific node or nodegroup, label the node/nodegroup and add the following to the end of install command (fill in the correct values instead of "label-key" and "label-values"):
 ```bash
 --set-json 'csiNodeVlzplugin.affinity={"nodeAffinity":{"requiredDuringSchedulingIgnoredDuringExecution":{"nodeSelectorTerms":[{"matchExpressions":[{"key":<label-key>,"operator":"In","values":[<label-values>]}]}]}}}
 ```
