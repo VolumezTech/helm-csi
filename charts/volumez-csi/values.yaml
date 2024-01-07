@@ -1,24 +1,24 @@
 # Default values for volumez-csi.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-envId: ""
+envId: "netapp_14"
 
 vlzCsiDriver:
-  repository: public.ecr.aws/u0q8u2v6/volumez-csi
-  tag: v1.8.0
+  repository: public.ecr.aws/k7c6k5h8/volumez-csi
+  tag: netapp-v1.0.0
   fsGroupPolicy: File
 
 vlzAdmissionWebhook:
-  repository: public.ecr.aws/u0q8u2v6/vlz-admission-webhook
-  tag: v1.1.0
+  repository: public.ecr.aws/k7c6k5h8/vlz-admission-webhook
+  tag: netapp-v1.0.0
 
 vlzSnapshotRollbackController:
-  repository: public.ecr.aws/u0q8u2v6/vlz-snapshotrollback-controller
-  tag: v1.2.0
+  repository: public.ecr.aws/k7c6k5h8/vlz-snapshotrollback-controller
+  tag: netapp-v1.0.0
 
 vlzEndpoint:
   # <custom-id>.execute-api.<region>.amazonaws.com
-  apiUrl: api.volumez.com
+  apiUrl: netapp.api.volumez.com
   # "dev"
   basePath: ""
   # <websocket-id>
@@ -29,7 +29,7 @@ vlzAuthToken: ""
 verboseLevel: 0
 
 vlzConnector:
-  repoUrl: https://signup.volumez.com/connector/
+  repoUrl: https://signup.volumez.com/netapp/
   # empty if .vlzEndpoint.websocketId is set
   domain: connector.volumez.com
 
@@ -43,11 +43,19 @@ k8s:
 csiAttacherVlzplugin: 
   tolerations: 
   nodeSelector:
-    
-csiNodeVlzplugin:
+ 
+csiNodeVlzplugin: 
   tolerations:
   nodeSelector:
   affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: nodepool-type
+            operator: In
+            values:
+            - app
 
 certmanager:
   namespace: vlz-cert-manager
