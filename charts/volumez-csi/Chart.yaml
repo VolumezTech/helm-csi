@@ -5,9 +5,3 @@ name: volumez-csi
 type: application
 version: 1.22.0
 icon: https://volumez.com/wp-content/uploads/2022/01/Group-2273.svg
-dependencies:
-  - name: cert-manager
-    version: 1.11.0
-    repository: https://charts.jetstack.io
-    alias: certmanager
-    condition: cert-manager.enabled

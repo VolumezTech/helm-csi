@@ -8,14 +8,6 @@ vlzCsiDriver:
   tag: netapp-v1.0.0
   fsGroupPolicy: File
 
-vlzAdmissionWebhook:
-  repository: public.ecr.aws/k7c6k5h8/vlz-admission-webhook
-  tag: netapp-v1.0.0
-
-vlzSnapshotRollbackController:
-  repository: public.ecr.aws/k7c6k5h8/vlz-snapshotrollback-controller
-  tag: netapp-v1.0.0
-
 vlzEndpoint:
   # <custom-id>.execute-api.<region>.amazonaws.com
   apiUrl: netapp.api.volumez.com
