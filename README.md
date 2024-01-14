@@ -16,7 +16,7 @@ To install the volumez-csi chart:
 helm install my-volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --create-namespace --dependency-update
 ```
 
-**If you have already cert-manager chart installed in your cluster:**
+**If you already have Cert-Manager on your cluster:**
 ```bash
 helm install my-volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --create-namespace --dependency-update --set certmanager.enabled=false
 ```
