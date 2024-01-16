@@ -4,16 +4,16 @@
 envId: "netapp_14"
 
 vlzCsiDriver:
-  repository: public.ecr.aws/k7c6k5h8/volumez-csi
+  repository: public.ecr.aws/u0q8u2v6/volumez-csi
   tag: netapp-v1.0.0
   fsGroupPolicy: File
 
 vlzAdmissionWebhook:
-  repository: public.ecr.aws/k7c6k5h8/vlz-admission-webhook
+  repository: public.ecr.aws/u0q8u2v6/vlz-admission-webhook
   tag: netapp-v1.0.0
 
 vlzSnapshotRollbackController:
-  repository: public.ecr.aws/k7c6k5h8/vlz-snapshotrollback-controller
+  repository: public.ecr.aws/u0q8u2v6/vlz-snapshotrollback-controller
   tag: netapp-v1.0.0
 
 vlzEndpoint:
