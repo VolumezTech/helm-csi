@@ -5,7 +5,7 @@ envId: "netapp_14"
 
 vlzCsiDriver:
   repository: public.ecr.aws/k7c6k5h8/volumez-csi
-  tag: netapp-v1.0.0
+  tag: netapp-v1.0.1
   fsGroupPolicy: File
 
 vlzAdmissionWebhook:
