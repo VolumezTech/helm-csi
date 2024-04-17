@@ -97,6 +97,7 @@ spec:
             - "--volumezEndpointBasePath=$(VOLUMEZ_ENDPOINT_BASE_PATH)"
             - "--volumezauthtoken=$(VOLUMEZ_AUTH_TOKEN)"            
             - "--run_connector=$(RUN_CONNECTOR)"
+            - "--connector_force_install=$(CONNECTOR_FORCE_INSTALL)"
             - "--connector_download_repository_base_url=$(connector_download_repository_base_url)"
             - "--connector_api_domain=$(CONNECTOR_API_DOMAIN)"
             - "--websocket_id=$(WEBSOCKET_ID)"
@@ -117,7 +118,9 @@ spec:
             - name: VOLUMEZ_AUTH_TOKEN
               value: "{{ .Values.vlzAuthToken }}"
             - name: RUN_CONNECTOR
-              value: 'false'
+              value: "{{ .Values.vlzConnector.runConnector }}"
+            - name: CONNECTOR_FORCE_INSTALL
+              value: "{{ .Values.vlzConnector.forceInstall }}"
             - name: connector_download_repository_base_url
               value: "{{ .Values.vlzConnector.repoUrl }}"
             - name: ENV_ID
