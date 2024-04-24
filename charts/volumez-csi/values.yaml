@@ -21,8 +21,6 @@ vlzEndpoint:
   apiUrl: api.volumez.com
   # "dev"
   basePath: ""
-  # <websocket-id>
-  websocketId: ""
 
 # CSI Driver Token (Refresh Token)
 vlzAuthToken: ""
