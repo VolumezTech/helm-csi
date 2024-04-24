@@ -24,7 +24,7 @@ vlzEndpoint:
 
 # CSI Driver Token (Refresh Token)
 vlzAuthToken: ""
-verboseLevel: 0
+verboseLevel: 1
 
 vlzConnector:
   repoUrl: https://signup.volumez.com/connector/
