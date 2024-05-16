@@ -100,7 +100,6 @@ spec:
             - "--connector_force_install=$(CONNECTOR_FORCE_INSTALL)"
             - "--connector_download_repository_base_url=$(connector_download_repository_base_url)"
             - "--connector_api_domain=$(CONNECTOR_API_DOMAIN)"
-            - "--websocket_id=$(WEBSOCKET_ID)"
             - "--env_id=$(ENV_ID)"
             - "--v=$(VERBOSE_LEVEL)"
 
