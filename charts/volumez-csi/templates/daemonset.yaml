@@ -73,7 +73,7 @@ spec:
             - name: VOLUMEZ_AUTH_TOKEN
               value: "{{ .Values.vlzAuthToken }}"
             - name: RUN_CONNECTOR
-              value: "{{ .Values.vlzConnector.runConnector }}"
+              value: "true"
             - name: CONNECTOR_FORCE_INSTALL
               value: "{{ .Values.vlzConnector.forceInstall }}"
             - name: CONNECTOR_DOWNLOAD_REPOSITORY_BASE_URL

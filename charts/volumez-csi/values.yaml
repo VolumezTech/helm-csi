@@ -28,7 +28,6 @@ verboseLevel: 0
 
 vlzConnector:
   repoUrl: https://signup.volumez.com/connector/
-  runConnector: true
   forceInstall: false
   # empty if .vlzEndpoint.websocketId is set
   domain: connector.volumez.com
