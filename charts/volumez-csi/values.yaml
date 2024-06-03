@@ -21,6 +21,8 @@ vlzEndpoint:
   apiUrl: api.volumez.com
   # "dev"
   basePath: ""
+  # <websocket-id>
+  websocketId: ""
 
 # CSI Driver Token (Refresh Token)
 vlzAuthToken: ""
@@ -28,7 +30,6 @@ verboseLevel: 0
 
 vlzConnector:
   repoUrl: https://signup.volumez.com/connector/
-  forceInstall: false
   # empty if .vlzEndpoint.websocketId is set
   domain: connector.volumez.com
 
