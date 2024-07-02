@@ -12,7 +12,7 @@ rules:
     verbs: ["create", "get", "list", "watch", "update", "delete", "patch"]
   - apiGroups: ["snapshot.storage.k8s.io"]
     resources: ["volumesnapshotcontents/status"]
-    verbs: ["update"]
+    verbs: ["update", "patch"]
   - apiGroups: [""]
     resources: ["pods"]
     verbs: ["get", "list", "watch"]
