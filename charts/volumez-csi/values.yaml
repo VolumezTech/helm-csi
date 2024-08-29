@@ -5,7 +5,7 @@ envId: ""
 
 vlzCsiDriver:
   repository: public.ecr.aws/u0q8u2v6/volumez-csi
-  tag: v1.8.0
+  tag: v1.10.0
   fsGroupPolicy: File
 
 vlzAdmissionWebhook:
@@ -21,8 +21,6 @@ vlzEndpoint:
   apiUrl: api.volumez.com
   # "dev"
   basePath: ""
-  # <websocket-id>
-  websocketId: ""
 
 # CSI Driver Token (Refresh Token)
 vlzAuthToken: ""
@@ -30,6 +28,7 @@ verboseLevel: 0
 
 vlzConnector:
   repoUrl: https://signup.volumez.com/connector/
+  forceInstall: false
   # empty if .vlzEndpoint.websocketId is set
   domain: connector.volumez.com
 
@@ -52,3 +51,4 @@ csiNodeVlzplugin:
 certmanager:
   namespace: vlz-cert-manager
   installCRDs: true
+  enabled: true
