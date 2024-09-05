@@ -14,6 +14,7 @@ spec:
       labels:
         app: csi-attacher-vlzplugin
         webhook: vlz-admission-webhook
+        deploymentRevisionId: "{{ .Release.Revision }}" # this here updates and forces refresh
     spec:
       serviceAccountName: csi-attacher
       containers:
