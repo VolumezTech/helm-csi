@@ -1,18 +1,18 @@
 kind: DaemonSet
 apiVersion: apps/v1
 metadata:
-  name: csi-nodeplugin-vlzplugin
+  name: csi-nodeplugin-vlzplugin-{{ .Release.Name }}
   namespace: {{ .Release.Namespace }}
 spec:
   selector:
     matchLabels:
-      app: csi-nodeplugin-vlzplugin
+      app: csi-nodeplugin-vlzplugin-{{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: csi-nodeplugin-vlzplugin
+        app: csi-nodeplugin-vlzplugin-{{ .Release.Name }}
     spec:
-      serviceAccountName: csi-nodeplugin
+      serviceAccountName: csi-nodeplugin-{{ .Release.Name }}
       terminationGracePeriodSeconds: 30
       containers:
         - name: node-driver-registrar

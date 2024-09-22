@@ -1,21 +1,21 @@
 kind: StatefulSet
 apiVersion: apps/v1
 metadata:
-  name: csi-attacher-vlzplugin
+  name: csi-attacher-vlzplugin-{{ .Release.Name }}
   namespace: {{ .Release.Namespace }}
 spec:
   serviceName: "csi-attacher"
   replicas: 1
   selector:
     matchLabels:
-      app: csi-attacher-vlzplugin
+      app: csi-attacher-vlzplugin-{{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: csi-attacher-vlzplugin
-        webhook: vlz-admission-webhook
+        app: csi-attacher-vlzplugin-{{ .Release.Name }}
+        webhook: vlz-admission-webhook-{{ .Release.Name }}
     spec:
-      serviceAccountName: csi-attacher
+      serviceAccountName: csi-attacher-{{ .Release.Name }}
       containers:
         - name: csi-snapshotter
           image: registry.k8s.io/sig-storage/csi-snapshotter:{{ .Values.k8s.snapshotter }}
@@ -133,7 +133,7 @@ spec:
 
         - image: "{{ .Values.vlzAdmissionWebhook.repository }}:{{ .Values.vlzAdmissionWebhook.tag }}"
           imagePullPolicy: "Always"
-          name: vlz-admission-webhook
+          name: vlz-admission-webhook-{{ .Release.Name }}
           env:
             - name: TLS
               value: "true"
@@ -148,7 +148,7 @@ spec:
       volumes:
         - name: tls
           secret:
-            secretName: vlz-admission-webhook-tls
+            secretName: vlz-admission-webhook-tls-{{ .Release.Name }}
         - name: socket-dir
           emptyDir:
 {{- if .Values.csiAttacherVlzplugin.tolerations }}

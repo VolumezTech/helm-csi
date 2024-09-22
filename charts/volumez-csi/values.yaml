@@ -1,33 +1,33 @@
 # Default values for volumez-csi.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-envId: ""
+envId: "second-csi-ng-DCMIP7"
 
 vlzCsiDriver:
   repository: public.ecr.aws/u0q8u2v6/volumez-csi
-  tag: v1.10.0
+  tag: v1.28.0
   fsGroupPolicy: File
 
 vlzAdmissionWebhook:
   repository: public.ecr.aws/u0q8u2v6/vlz-admission-webhook
-  tag: v1.1.0
+  tag: v1.16.0
 
 vlzSnapshotRollbackController:
   repository: public.ecr.aws/u0q8u2v6/vlz-snapshotrollback-controller
-  tag: v1.2.0
+  tag: v1.25.0
 
 vlzEndpoint:
   # <custom-id>.execute-api.<region>.amazonaws.com
-  apiUrl: api.volumez.com
+  apiUrl: https://gwtnoa836k.execute-api.us-east-1.amazonaws.com
   # "dev"
-  basePath: ""
+  basePath: "dev"
 
 # CSI Driver Token (Refresh Token)
 vlzAuthToken: ""
 verboseLevel: 0
 
 vlzConnector:
-  repoUrl: https://signup.volumez.com/connector/
+  repoUrl: https://signup.dev.volumez.com/connector/sharon/test2
   forceInstall: false
   # empty if .vlzEndpoint.websocketId is set
   domain: connector.volumez.com
