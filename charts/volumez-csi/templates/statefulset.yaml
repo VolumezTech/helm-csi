@@ -49,6 +49,10 @@ spec:
             - "--timeout=320s"
             - "--retry-interval-start=10s"
             - "--retry-interval-max=40m"
+            - "--worker-threads=130"
+            - "--kube-api-qps=15"
+            - "--kube-api-burst=30"
+            
           env:
             - name: ADDRESS
               value: /csi/csi.sock
