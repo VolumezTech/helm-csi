@@ -33,11 +33,12 @@ vlzConnector:
   domain: connector.volumez.com
 
 k8s:
-  attacherVer: "v3.4.0"
-  registrarVer: "v2.3.0"
-  provisionerVer: "v3.0.0"
-  snapshotter: "v5.0.1"
-  snapshotController: "v4.2.1"
+  attacherTag: "v4.7.0"
+  registrarTag: "v2.12.0"
+  provisionerTag: "v5.1.0"
+  snapshotterTag: "v8.0.1"
+  snapshotControllerTag: "v8.0.1"
+  resizerTag: "v1.9.0"
 
 csiAttacherVlzplugin: 
   tolerations: 

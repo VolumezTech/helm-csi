@@ -1,11 +1,11 @@
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
 metadata:
-  name: "vlz-admission-webhook-{{ .Release.Name }}.volumez.com"
+  name: "vlz-admission-webhook-{{ .Release.Name }}-{{ .Release.Namespace }}.volumez.com"
   annotations:
-    cert-manager.io/inject-ca-from: {{ .Release.Namespace }}/vlz-admission-webhook-serving-cert
+    cert-manager.io/inject-ca-from: {{ .Release.Namespace }}/vlz-admission-webhook-serving-cert-{{ .Release.Name }}
 webhooks:
-  - name: "vlz-admission-webhook-{{ .Release.Name }}.volumez.com"
+  - name: "vlz-admission-webhook-{{ .Release.Name }}-{{ .Release.Namespace }}.volumez.com"
     rules:
       - apiGroups: ["vlzcontroller.k8s.io"]
         apiVersions: ["*"]

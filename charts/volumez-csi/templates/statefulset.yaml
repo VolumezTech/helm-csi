@@ -18,7 +18,7 @@ spec:
       serviceAccountName: csi-attacher-{{ .Release.Name }}
       containers:
         - name: csi-snapshotter
-          image: registry.k8s.io/sig-storage/csi-snapshotter:{{ .Values.k8s.snapshotter }}
+          image: registry.k8s.io/sig-storage/csi-snapshotter:{{ .Values.k8s.snapshotterTag }}
           args:
             - "--v=5"
             - "--csi-address=$(ADDRESS)"
@@ -34,13 +34,13 @@ spec:
               mountPath: /csi
 
         - name: csi-snapshot-controller
-          image: registry.k8s.io/sig-storage/snapshot-controller:{{ .Values.k8s.snapshotController }}
+          image: registry.k8s.io/sig-storage/snapshot-controller:{{ .Values.k8s.snapshotControllerTag }}
           args:
             - "--v=5"
           imagePullPolicy: IfNotPresent
 
         - name: csi-provisioner
-          image: registry.k8s.io/sig-storage/csi-provisioner:{{ .Values.k8s.provisionerVer }}
+          image: registry.k8s.io/sig-storage/csi-provisioner:{{ .Values.k8s.provisionerTag }}
           args:
             - "--csi-address=$(ADDRESS)"
             - "--extra-create-metadata"
@@ -57,7 +57,23 @@ spec:
               mountPath: /csi
 
         - name: csi-attacher
-          image: registry.k8s.io/sig-storage/csi-attacher:{{ .Values.k8s.attacherVer }}
+          image: registry.k8s.io/sig-storage/csi-attacher:{{ .Values.k8s.attacherTag }}
+          args:
+            - "--v=5"
+            - "--csi-address=$(ADDRESS)"
+            - "--timeout=200s"
+            - "--retry-interval-start=10s"
+            - "--retry-interval-max=40m"
+          env:
+            - name: ADDRESS
+              value: /csi/csi.sock
+          imagePullPolicy: "Always"
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /csi
+
+        - name: csi-resizer
+          image: registry.k8s.io/sig-storage/csi-resizer:{{ .Values.k8s.resizerTag }}
           args:
             - "--v=5"
             - "--csi-address=$(ADDRESS)"

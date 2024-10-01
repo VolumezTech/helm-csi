@@ -1,12 +1,12 @@
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: csi-attacher-role-{{ .Release.Name }}
+  name: csi-attacher-role-{{ .Release.Name }}-{{ .Release.Namespace }}
 subjects:
   - kind: ServiceAccount
     name: csi-attacher-{{ .Release.Name }}
     namespace: {{ .Release.Namespace }}
 roleRef:
   kind: ClusterRole
-  name: external-attacher-runner-{{ .Release.Name }}
+  name: external-attacher-runner-{{ .Release.Name }}-{{ .Release.Namespace }}
   apiGroup: rbac.authorization.k8s.io
