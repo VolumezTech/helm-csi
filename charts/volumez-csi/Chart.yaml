@@ -3,7 +3,7 @@ appVersion: "1.16.0"
 description: A Helm chart for Volumez-CSI container
 name: volumez-csi
 type: application
-version: 1.25.0
+version: 1.26.0-rc.1
 icon: https://volumez.com/wp-content/uploads/2022/01/Group-2273.svg
 dependencies:
   - name: cert-manager
