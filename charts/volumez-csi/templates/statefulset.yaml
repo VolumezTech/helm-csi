@@ -110,14 +110,15 @@ spec:
           args :
             - "--nodeid=$(NODE_ID)"
             - "--endpoint=$(CSI_ENDPOINT)"
-            - "--volumezendpoint=$(VOLUMEZ_ENDPOINT)"
-            - "--volumezEndpointBasePath=$(VOLUMEZ_ENDPOINT_BASE_PATH)"
-            - "--volumezauthtoken=$(VOLUMEZ_AUTH_TOKEN)"            
-            - "--run_connector=$(RUN_CONNECTOR)"
-            - "--connector_force_install=$(CONNECTOR_FORCE_INSTALL)"
-            - "--connector_download_repository_base_url=$(connector_download_repository_base_url)"
-            - "--connector_api_domain=$(CONNECTOR_API_DOMAIN)"
-            - "--env_id=$(ENV_ID)"
+            - "--volumez-endpoint=$(VOLUMEZ_ENDPOINT)"
+            - "--volumez-endpoint-base-path=$(VOLUMEZ_ENDPOINT_BASE_PATH)"
+            - "--volumez-auth-token=$(VOLUMEZ_AUTH_TOKEN)"            
+            - "--run-connector=$(RUN_CONNECTOR)"
+            - "--connector-force-install=$(CONNECTOR_FORCE_INSTALL)"
+            - "--connector-download-repository-base-url=$(CONNECTOR_DOWNLOAD_REPOSITORY_BASE_URL)"
+            - "--connector-api-domain=$(CONNECTOR_API_DOMAIN)"
+            - "--env-id=$(ENV_ID)"
+            - "--driver-suffix=$(DRIVER_NAME_SUFFIX)"
             - "--v=$(VERBOSE_LEVEL)"
 
           env:
@@ -137,10 +138,12 @@ spec:
               value: "false"
             - name: CONNECTOR_FORCE_INSTALL
               value: "{{ .Values.vlzConnector.forceInstall }}"
-            - name: connector_download_repository_base_url
+            - name: CONNECTOR_DOWNLOAD_REPOSITORY_BASE_URL
               value: "{{ .Values.vlzConnector.repoUrl }}"
             - name: ENV_ID
               value: "{{ .Values.envId }}"
+            - name: DRIVER_NAME_SUFFIX
+              value: "{{- if .Values.multiInstanceMode }}{{ .Release.Namespace }}{{- end }}"
             - name: VERBOSE_LEVEL
               value: "{{ .Values.verboseLevel }}"
 
