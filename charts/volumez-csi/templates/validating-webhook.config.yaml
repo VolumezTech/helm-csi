@@ -1,11 +1,11 @@
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
 metadata:
-  name: "vlz-admission-webhook.volumez.com"
+  name: "vlz-admission-webhook{{- if .Values.multiInstanceMode }}-{{ .Release.Namespace }}{{- end }}.volumez.com"
   annotations:
     cert-manager.io/inject-ca-from: {{ .Release.Namespace }}/vlz-admission-webhook-serving-cert
 webhooks:
-  - name: "vlz-admission-webhook.volumez.com"
+  - name: "vlz-admission-webhook{{- if .Values.multiInstanceMode }}-{{ .Release.Namespace }}{{- end }}.volumez.com"
     rules:
       - apiGroups: ["vlzcontroller.k8s.io"]
         apiVersions: ["*"]

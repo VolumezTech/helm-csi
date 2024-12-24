@@ -24,6 +24,10 @@ vlzEndpoint:
 
 # CSI Driver Token (Refresh Token)
 vlzAuthToken: ""
+
+# Allows multiple deployments of the CSI driver on the same cluster
+multiInstanceMode: false
+
 verboseLevel: 0
 
 vlzConnector:
