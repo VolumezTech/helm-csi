@@ -4,9 +4,6 @@ kind: Service
 metadata:
   labels:
     app: vlz-admission-webhook
-  annotations:
-    "helm.sh/hook": post-install,post-upgrade
-    "helm.sh/hook-weight": "1"
 
   name: vlz-admission-webhook
   namespace: {{ .Release.Namespace }}
@@ -16,6 +13,5 @@ spec:
     - port: 443
       protocol: TCP
       targetPort: 443
-      nodePort: 30100
   selector:
     webhook: vlz-admission-webhook
