@@ -60,11 +60,12 @@ spec:
         - name: csi-attacher
           image: registry.k8s.io/sig-storage/csi-attacher:{{ .Values.k8s.attacherTag }}
           args:
-            - "--v=5"
+            - "--v=7"
             - "--csi-address=$(ADDRESS)"
-            - "--timeout=200s"
-            - "--retry-interval-start=10s"
-            - "--retry-interval-max=40m"
+            - "--timeout=400s"
+            - "--retry-interval-start=5s"
+            - "--retry-interval-max=15m"
+            - "--worker-threads=100"
           env:
             - name: ADDRESS
               value: /csi/csi.sock
