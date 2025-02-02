@@ -23,6 +23,9 @@ spec:
                   type: string
                 snapshot:
                   type: string
+              x-kubernetes-validations:
+                - rule: "self == oldSelf"
+                  message: "Spec fields are immutable after creation"
             status:
               type: object
               properties:
