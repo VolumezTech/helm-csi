@@ -13,7 +13,6 @@ spec:
     metadata:
       labels:
         app: csi-attacher-vlzplugin
-        webhook: vlz-admission-webhook
         deploymentRevisionId: "{{ .Release.Revision }}" # this here updates and forces refresh
     spec:
       serviceAccountName: csi-attacher
@@ -150,25 +149,7 @@ spec:
           volumeMounts:
             - name: socket-dir
               mountPath: /plugin
-
-        - image: "{{ .Values.vlzAdmissionWebhook.repository }}:{{ .Values.vlzAdmissionWebhook.tag }}"
-          imagePullPolicy: "Always"
-          name: vlz-admission-webhook
-          env:
-            - name: TLS
-              value: "true"
-            - name: LOG_LEVEL
-              value: "trace"
-            - name: LOG_JSON
-              value: "false"
-          volumeMounts:
-            - name: tls
-              mountPath: "/etc/admission-webhook/tls"
-              readOnly: true
       volumes:
-        - name: tls
-          secret:
-            secretName: vlz-admission-webhook-tls
         - name: socket-dir
           emptyDir:
 {{- if .Values.csiAttacherVlzplugin.tolerations }}
