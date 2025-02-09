@@ -3,6 +3,17 @@ entries:
   volumez-csi:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2025-02-09T11:51:38.022099879Z"
+    description: A Helm chart for Volumez-CSI container
+    digest: b291166541efb2eb517585a6a243ad1de4bed2b2d41b2b85952d27a47ce59240
+    icon: https://volumez.com/wp-content/uploads/2022/01/Group-2273.svg
+    name: volumez-csi
+    type: application
+    urls:
+    - https://github.com/VolumezTech/helm-csi/releases/download/volumez-csi-1.30.0-rc.1/volumez-csi-1.30.0-rc.1.tgz
+    version: 1.30.0-rc.1
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2025-02-03T12:28:55.373636313Z"
     dependencies:
     - alias: certmanager
@@ -1369,4 +1380,4 @@ entries:
     urls:
     - https://github.com/VolumezTech/helm-csi/releases/download/volumez-csi-0.1.1/volumez-csi-0.1.1.tgz
     version: 0.1.1
-generated: "2025-02-03T12:28:55.374040686Z"
+generated: "2025-02-09T11:51:38.022483602Z"
