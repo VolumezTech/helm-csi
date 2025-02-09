@@ -2,6 +2,5 @@ apiVersion: v2
 name: volumez-csi
 description: A Helm chart for Volumez-CSI Driver
 type: application
-version: 1.29.0
-appVersion: "1.16.0"
+version: 1.30.0-rc.1
 icon: https://volumez.com/wp-content/uploads/2022/01/Group-2273.svg
