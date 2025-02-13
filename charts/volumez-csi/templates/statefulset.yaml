@@ -18,7 +18,7 @@ spec:
       serviceAccountName: csi-attacher
       containers:
         - name: csi-snapshotter
-          image: registry.k8s.io/sig-storage/csi-snapshotter:{{ .Values.k8s.snapshotterTag }}
+          image: registry.k8s.io/sig-storage/csi-snapshotter:{{ .Values.sidecars.snapshotter.tag }}
           args:
             - "--v=5"
             - "--csi-address=$(ADDRESS)"
@@ -34,13 +34,13 @@ spec:
               mountPath: /csi
 
         - name: csi-snapshot-controller
-          image: registry.k8s.io/sig-storage/snapshot-controller:{{ .Values.k8s.snapshotControllerTag }}
+          image: registry.k8s.io/sig-storage/snapshot-controller:{{ .Values.sidecars.snapshotController.tag }}
           args:
             - "--v=5"
           imagePullPolicy: IfNotPresent
 
         - name: csi-provisioner
-          image: registry.k8s.io/sig-storage/csi-provisioner:{{ .Values.k8s.provisionerTag }}
+          image: registry.k8s.io/sig-storage/csi-provisioner:{{ .Values.sidecars.provisioner.tag }}
           args:
             - "--csi-address=$(ADDRESS)"
             - "--extra-create-metadata"
@@ -57,13 +57,14 @@ spec:
               mountPath: /csi
 
         - name: csi-attacher
-          image: registry.k8s.io/sig-storage/csi-attacher:{{ .Values.k8s.attacherTag }}
+          image: registry.k8s.io/sig-storage/csi-attacher:{{ .Values.sidecars.attacher.tag }}
           args:
             - "--v=5"
             - "--csi-address=$(ADDRESS)"
             - "--timeout=200s"
             - "--retry-interval-start=10s"
             - "--retry-interval-max=40m"
+            - "--worker-threads={{ .Values.sidecars.attacher.workers }}"
           env:
             - name: ADDRESS
               value: /csi/csi.sock
@@ -73,7 +74,7 @@ spec:
               mountPath: /csi
 
         - name: csi-resizer
-          image: registry.k8s.io/sig-storage/csi-resizer:{{ .Values.k8s.resizerTag }}
+          image: registry.k8s.io/sig-storage/csi-resizer:{{ .Values.sidecars.resizer.tag }}
           args:
             - "--v=5"
             - "--csi-address=$(ADDRESS)"
