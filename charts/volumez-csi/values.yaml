@@ -1,7 +1,13 @@
 # Default values for volumez-csi.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+
 envId: ""
+
+# -- CSI Driver Token (Refresh Token)
+vlzAuthToken: ""
+
+verboseLevel: 0
 
 vlzCsiDriver:
   repository: public.ecr.aws/u0q8u2v6/volumez-csi
@@ -13,23 +19,17 @@ vlzSnapshotRollbackController:
   tag: v1.2.0
 
 vlzEndpoint:
-  # <custom-id>.execute-api.<region>.amazonaws.com
+  # -- {custom-id}.execute-api.{region}.amazonaws.com
   apiUrl: api.volumez.com
-  # "dev"
+# -- Example: "dev"
   basePath: ""
 
-# CSI Driver Token (Refresh Token)
-vlzAuthToken: ""
-
-# Allows multiple deployments of the CSI driver on the same cluster
+# -- Allows multiple deployments of the CSI driver on the same cluster
 multiInstanceMode: false
-
-verboseLevel: 0
 
 vlzConnector:
   repoUrl: https://signup.volumez.com/connector/
   forceInstall: false
-  # empty if .vlzEndpoint.websocketId is set
   domain: connector.volumez.com
 
 k8s:
@@ -40,10 +40,12 @@ k8s:
   snapshotControllerTag: "v8.2.0"
   resizerTag: "v1.9.0"
 
+# -- Allows to install the driver and sidecars on a specific node or node group
 csiAttacherVlzplugin:
   tolerations:
   nodeSelector:
-    
+
+# -- Allows to install the nodeplugin on a specific node or node group
 csiNodeVlzplugin:
   tolerations:
   nodeSelector:

@@ -42,6 +42,10 @@ jobs:
           echo "NEW_CHART_VERSION=$new_version" >> $GITHUB_OUTPUT
           sed -i "0,/version:/s/version:.*/version: $new_version/" charts/volumez-csi/Chart.yaml
       
+      - name: Update Helm Docs
+        run: |
+          docker run --rm -v "$(pwd):/helm-docs" jnorwood/helm-docs:latest -s file
+
       - name: Commit&Push Changes
         run: |
           git config user.name "$GITHUB_ACTOR"
