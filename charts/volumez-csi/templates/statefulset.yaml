@@ -48,6 +48,7 @@ spec:
             - "--timeout=320s"
             - "--retry-interval-start=10s"
             - "--retry-interval-max=40m"
+            - "--strict-topology=true"
           env:
             - name: ADDRESS
               value: /csi/csi.sock
