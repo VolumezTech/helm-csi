@@ -11,34 +11,28 @@ Once Helm has been set up correctly, add the repo as follows:
 helm repo add volumez-csi https://volumeztech.github.io/helm-csi
 ```
 
+### Configuration
+
+For detailed configuration options, please refer to the [volumez-csi chart README](./charts/volumez-csi/README.md).
+
 ### Install
 
 To install the volumez-csi chart:
 
 ```bash
-helm install my-volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --create-namespace --dependency-update
+helm install my-volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --create-namespace 
 ```
 
-**If you already have Cert-Manager on your cluster:**
-
+To install a specific chart version:
 ```bash
-helm upgrade --install my-volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --create-namespace --dependency-update --set certmanager.enabled=false
-```
-
-### Install Specific Chart Version
-
-To install the volumez-csi chart:
-```bash
-helm install my-volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --create-namespace --dependency-update --version VERSION_TAG
+helm install my-volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --create-namespace --version VERSION_TAG
 ```
 i.e:
 ```bash
-helm install my-volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --create-namespace --dependency-update --version 1.22.0-rc.1
+helm install my-volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --create-namespace --version 1.22.0-rc.1
 ```
 
-### Install Only on Specific Node/Node-Group
-
-To install the volumez-csi on specific node or nodegroup, label the node/nodegroup and add the following to the end of install command (fill in the correct values instead of "label-key" and "label-values"):
+To install the volumez-csi on a specific node or node group, label the node/node group and add the following to the end of the install command (fill in the correct values instead of "label-key" and "label-values"):
 
 ```bash
 --set-json 'csiNodeVlzplugin.affinity={"nodeAffinity":{"requiredDuringSchedulingIgnoredDuringExecution":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"<label-key>","operator":"In","values":["<label-values>"]}]}]}}}'
@@ -50,7 +44,7 @@ i.e:
 --set-json 'csiNodeVlzplugin.affinity={"nodeAffinity":{"requiredDuringSchedulingIgnoredDuringExecution":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"nodepool-type","operator":"In","values":["app", "media"]}]}]}}}'
 ```
 
-### Upgrade to Latest Chart Version
+### Upgrade
 
 If you had already added this repo earlier, run `helm repo update --force` to retrieve the latest versions of the packages. 
 You can then run `helm search repo volumez-csi` to see the charts.<br/>
@@ -59,12 +53,7 @@ To upgrade the chart:
   helm upgrade my-volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver 
   ```
 
-### Upgrade to a Specific Chart Version
-
-If you had already added this repo earlier, run `helm repo update` to retrieve the latest versions of the packages. 
-You can then run `helm search repo volumez-csi` to see the charts.<br/>
-To see all chart versions (including rc versions) use `helm search repo volumez-csi --versions --devel`
-To upgrade the chart:
+To upgrade to a specific chart version:
   ```bash
   helm upgrade my-volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --version VERSION_TAG
   ```
