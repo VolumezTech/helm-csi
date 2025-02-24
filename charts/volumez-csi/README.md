@@ -1,6 +1,6 @@
 # volumez-csi
 
-![Version: 1.28.0](https://img.shields.io/badge/Version-1.28.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.16.0](https://img.shields.io/badge/AppVersion-1.16.0-informational?style=flat-square)
+![Version: 1.30.0-rc.2](https://img.shields.io/badge/Version-1.30.0--rc.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Helm chart for Volumez-CSI Driver
 
@@ -22,12 +22,13 @@ A Helm chart for Volumez-CSI Driver
 | vlzConnector.repoUrl | string | `"https://signup.volumez.com/connector/"` |  |
 | vlzConnector.forceInstall | bool | `false` |  |
 | vlzConnector.domain | string | `"connector.volumez.com"` |  |
-| k8s.attacherTag | string | `"v4.7.0"` |  |
-| k8s.registrarTag | string | `"v2.12.0"` |  |
-| k8s.provisionerTag | string | `"v5.1.0"` |  |
-| k8s.snapshotterTag | string | `"v8.2.0"` |  |
-| k8s.snapshotControllerTag | string | `"v8.2.0"` |  |
-| k8s.resizerTag | string | `"v1.9.0"` |  |
+| sidecars.attacher.tag | string | `"v4.7.0"` |  |
+| sidecars.attacher.workers | int | `10` |  |
+| sidecars.registrar.tag | string | `"v2.12.0"` |  |
+| sidecars.provisioner.tag | string | `"v5.1.0"` |  |
+| sidecars.snapshotter.tag | string | `"v8.2.0"` |  |
+| sidecars.snapshotController.tag | string | `"v8.2.0"` |  |
+| sidecars.resizer.tag | string | `"v1.9.0"` |  |
 | csiAttacherVlzplugin | object | `{"nodeSelector":null,"tolerations":null}` | Allows to install the driver and sidecars on a specific node or node group |
 | csiNodeVlzplugin | object | `{"affinity":null,"nodeSelector":null,"tolerations":null}` | Allows to install the nodeplugin on a specific node or node group |
 
