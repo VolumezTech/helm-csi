@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Jenkins Job
-        uses: appleboy/jenkins-action@v2
+        uses: appleboy/jenkins-action@v1.1.1
         with:
           url: ${{ secrets.JENKINS_URL }}
           username: ${{ secrets.JENKINS_USERNAME }}
@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Jenkins Job
-        uses: appleboy/jenkins-action@v2
+        uses: appleboy/jenkins-action@v1.1.1
         with:
           url: ${{ secrets.JENKINS_URL }}
           username: ${{ secrets.JENKINS_USERNAME }}
