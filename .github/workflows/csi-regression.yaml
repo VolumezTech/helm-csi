@@ -16,7 +16,7 @@ jobs:
         uses: appleboy/jenkins-action@v1.1.1
         with:
           url: ${{ secrets.JENKINS_URL }}
-          username: ${{ secrets.JENKINS_USERNAME }}
+          user: ${{ secrets.JENKINS_USERNAME }}
           token: ${{ secrets.JENKINS_TOKEN }}
           job: "Regression_V3"
           parameters: |
@@ -39,7 +39,7 @@ jobs:
         uses: appleboy/jenkins-action@v1.1.1
         with:
           url: ${{ secrets.JENKINS_URL }}
-          username: ${{ secrets.JENKINS_USERNAME }}
+          user: ${{ secrets.JENKINS_USERNAME }}
           token: ${{ secrets.JENKINS_TOKEN }}
           job: "Regression_V3"
           parameters: |
