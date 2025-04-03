@@ -16,7 +16,7 @@ jobs:
         uses: estherk0/jenkins-trigger@1.0
         with:
           url: ${{ secrets.JENKINS_URL }}
-          user: ${{ secrets.JENKINS_USERNAME }}
+          user_name: ${{ secrets.JENKINS_USERNAME }}
           api_token: ${{ secrets.JENKINS_TOKEN2 }}
           job_name: "Regression_V3"
           parameter: |
