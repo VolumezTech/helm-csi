@@ -11,7 +11,7 @@ jobs:
   aks_regression:
     name: AKS Regression Tests
     runs-on: ubuntu-latest
-    steps:
+    steps:  
       - name: Trigger AKS Jenkins Job
         uses: appleboy/jenkins-action@master
         with:
