@@ -31,7 +31,7 @@ jobs:
             AWS_EC2_VNL=True,
             AWS_APP_VNL=True
 
-  eks_regression:
+  eks_regression: 
     name: EKS Regression Tests
     runs-on: ubuntu-latest
     needs: aks_regression
