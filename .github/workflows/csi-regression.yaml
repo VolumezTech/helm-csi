@@ -13,25 +13,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Jenkins Job
-        uses: appleboy/jenkins-action@v1.1.1
+        uses: umutcolak/jenkins-trigger-job@main
         with:
           url: ${{ secrets.JENKINS_URL }}
-          user: ${{ secrets.JENKINS_USERNAME }}
-          token: ${{ secrets.JENKINS_TOKEN }}
-          job: "Regression_V3"
+          user_name: ${{ secrets.JENKINS_USERNAME }}
+          api_token: ${{ secrets.JENKINS_TOKEN }}
+          job_name: "Regression_V3"
           wait: true
-          parameters: Test_Plan=QA-5282,Private_SB=${{ github.ref_name }},AWS_EC2_OS=eks_latest,AWS_APP_OS=eks_latest,Config_File=eks_fast_regression_default.json,Manifest_Branch=master,pipeline_automation_branch=master,is_ms_mode=True,AWS_EC2_VNL=True,AWS_APP_VNL=True
+          parameters: '{"Test_Plan":"QA-5282","Private_SB":"${{ github.ref_name }}","AWS_EC2_OS":"eks_latest","AWS_APP_OS":"eks_latest","Config_File":"eks_fast_regression_default.json","Manifest_Branch":"master","pipeline_automation_branch":"master","is_ms_mode":"True","AWS_EC2_VNL":"True","AWS_APP_VNL":"True"}'
 
   trigger_jenkins_job2:
     name: Trigger Jenkins Job - Config 2
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Jenkins Job
-        uses: appleboy/jenkins-action@v1.1.1
+        uses: umutcolak/jenkins-trigger-job@main
         with:
           url: ${{ secrets.JENKINS_URL }}
-          user: ${{ secrets.JENKINS_USERNAME }}
-          token: ${{ secrets.JENKINS_TOKEN }}
-          job: "Regression_V3"
+          user_name: ${{ secrets.JENKINS_USERNAME }}
+          api_token: ${{ secrets.JENKINS_TOKEN }}
+          job_name: "Regression_V3"
           wait: true
-          parameters: Test_Plan=QA-5282,Private_SB=${{ github.ref_name }},AWS_EC2_OS=aks_latest,AWS_APP_OS=aks_latest,Config_File=aks_fast_regression_default.json,Manifest_Branch=master,pipeline_automation_branch=master,is_ms_mode=True,AWS_EC2_VNL=True,AWS_APP_VNL=True
+          parameters: '{"Test_Plan":"QA-5282","Private_SB":"${{ github.ref_name }}","AWS_EC2_OS":"aks_latest","AWS_APP_OS":"aks_latest","Config_File":"aks_fast_regression_default.json","Manifest_Branch":"master","pipeline_automation_branch":"master","is_ms_mode":"True","AWS_EC2_VNL":"True","AWS_APP_VNL":"True"}'
