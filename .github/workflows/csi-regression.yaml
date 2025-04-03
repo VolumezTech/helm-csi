@@ -51,6 +51,6 @@ jobs:
             Config_File=eks_fast_regression_default.json,
             Manifest_Branch=master,
             pipeline_automation_branch=master,
-            is_ms_mode=True,
+            is_ms_mode=True,  
             AWS_EC2_VNL=True,
             AWS_APP_VNL=True 
