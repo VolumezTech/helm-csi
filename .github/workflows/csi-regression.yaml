@@ -9,7 +9,7 @@ on:
   
 jobs:
   trigger_jenkins_job1:
-    name: AKS Regression
+    name: Trigger AKS Regression
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Jenkins Job
@@ -22,7 +22,7 @@ jobs:
           parameters: Test_Plan=QA-5282,Private_SB=${{ github.head_ref || github.ref_name  }},AWS_EC2_OS=aks_latest,AWS_APP_OS=aks_latest,Config_File=aks_fast_regression_default.json,Manifest_Branch=master,pipeline_automation_branch=master,is_ms_mode=True,AWS_EC2_VNL=True,AWS_APP_VNL=True
 
   trigger_jenkins_job2:
-    name: EKS Regression
+    name: Trigger EKS Regression
     runs-on: ubuntu-latest
     needs: trigger_jenkins_job1
     steps:
