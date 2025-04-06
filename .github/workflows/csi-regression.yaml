@@ -19,7 +19,7 @@ jobs:
           user_name: ${{ secrets.JENKINS_USERNAME }}
           api_token: ${{ secrets.JENKINS_TOKEN2 }}
           job_name: "Regression_V3"
-          parameter: '{"Test_Plan":"QA-5282"}'
+          parameter: '{"Private_SB":"dwdqwd"}'
 
   # trigger_jenkins_job2:
   #   name: Trigger Jenkins Job - Config 2
