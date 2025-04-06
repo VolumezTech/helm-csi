@@ -9,7 +9,7 @@ on:
   
 jobs:
   trigger_jenkins_job1:
-    name: Trigger Jenkins Job - Config 1
+    name: AKS Regression
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Jenkins Job
@@ -20,21 +20,9 @@ jobs:
           token: ${{ secrets.JENKINS_TOKEN2 }}
           job: Regression_V3
           parameters: Test_Plan=QA-5282,Private_SB=${{ github.head_ref || github.ref_name  }},AWS_EC2_OS=aks_latest,AWS_APP_OS=aks_latest,Config_File=aks_fast_regression_default.json,Manifest_Branch=master,pipeline_automation_branch=master,is_ms_mode=True,AWS_EC2_VNL=True,AWS_APP_VNL=True
-        id: jenkins_trigger
-        continue-on-error: true
-      
-      - name: Retry Jenkins Job on Failure
-        if: steps.jenkins_trigger.outcome == 'failure'
-        uses: appleboy/jenkins-action@master
-        with:
-          url: ${{ secrets.JENKINS_URL }}
-          user: ${{ secrets.JENKINS_USERNAME }}
-          token: ${{ secrets.JENKINS_TOKEN2 }}
-          job: Regression_V3
-          parameters: Test_Plan=QA-5282,Private_SB=${{ github.head_ref || github.ref_name  }},AWS_EC2_OS=aks_latest,AWS_APP_OS=aks_latest,Config_File=aks_fast_regression_default.json,Manifest_Branch=master,pipeline_automation_branch=master,is_ms_mode=True,AWS_EC2_VNL=True,AWS_APP_VNL=True
 
   trigger_jenkins_job2:
-    name: Trigger Jenkins Job - Config 2
+    name: EKS Regression
     runs-on: ubuntu-latest
     needs: trigger_jenkins_job1
     steps:
