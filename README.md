@@ -15,6 +15,36 @@ helm repo add volumez-csi https://volumeztech.github.io/helm-csi
 
 For detailed configuration options, please refer to the [volumez-csi chart README](./charts/volumez-csi/README.md).
 
+<details>
+<summary><b>Azure Installation Note</b></summary>
+
+Azure Kubernetes Service (AKS) comes with a built-in snapshot controller that reconciles snapshot CRDs to an older version. To ensure compatibility, you'll need to disable it:
+
+If CSI is not yet installed:
+```bash
+# Disable the snapshot controller
+az aks update \
+  --name <cluster-name> \
+  --resource-group <resource-group> \
+  --disable-snapshot-controller
+```
+
+If CSI is already installed:
+```bash
+# First disable the snapshot controller
+az aks update \
+  --name <cluster-name> \
+  --resource-group <resource-group> \
+  --disable-snapshot-controller
+
+# Then update the CRDs
+kubectl apply -f crd/
+```
+
+Note: The `--disable-snapshot-controller` flag is also available during cluster creation.
+
+</details>
+
 ### Install
 
 To install the volumez-csi chart:
@@ -25,11 +55,7 @@ helm install my-volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --create-n
 
 To install a specific chart version:
 ```bash
-helm install my-volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --create-namespace --version VERSION_TAG
-```
-i.e:
-```bash
-helm install my-volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --create-namespace --version 1.22.0-rc.1
+helm install my-volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --create-namespace --version VERSION_TAG # i.e: 1.22.0-rc.1
 ```
 
 To install the volumez-csi on a specific node or node group, label the node/node group and add the following to the end of the install command (fill in the correct values instead of "label-key" and "label-values"):
@@ -55,11 +81,7 @@ To upgrade the chart:
 
 To upgrade to a specific chart version:
   ```bash
-  helm upgrade my-volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --version VERSION_TAG
-  ```
-i.e:
-  ```bash
-  helm upgrade my-volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --version 1.23.0-rc.1
+  helm upgrade my-volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --version VERSION_TAG # i.e: 1.23.0-rc.1
   ```
 
 ### Uninstall
