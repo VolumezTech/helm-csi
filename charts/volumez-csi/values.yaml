@@ -11,7 +11,7 @@ verboseLevel: 0
 
 vlzCsiDriver:
   repository: public.ecr.aws/u0q8u2v6/volumez-csi
-  tag: v1.14.0-rc.1
+  tag: v1.14.0-rc.2
   fsGroupPolicy: File
 
 vlzSnapshotRollbackController:
