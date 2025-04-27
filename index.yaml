@@ -11,28 +11,6 @@ entries:
     type: application
     urls:
     - https://github.com/VolumezTech/helm-csi/releases/download/volumez-csi-1.31.0-rc.2/volumez-csi-1.31.0-rc.2.tgz
-    version: 1.31.0-rc.2
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2025-04-23T08:32:04.8094421Z"
-    description: A Helm chart for Volumez-CSI Driver
-    digest: d909628f2d6eca3f7afa8b00f026bdca4f56a453efa9568a3ad7b0f98a9b641c
-    icon: https://volumez.com/wp-content/uploads/2022/01/Group-2273.svg
-    name: volumez-csi
-    type: application
-    urls:
-    - https://github.com/VolumezTech/helm-csi/releases/download/volumez-csi-1.31.0-rc.1/volumez-csi-1.31.0-rc.1.tgz
-    version: 1.31.0-rc.1
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2025-04-21T14:02:33.762517873Z"
-    description: A Helm chart for Volumez-CSI Driver
-    digest: 0a32630fa608a753745a63cb56d8ce882d3ce25765580330c6eca1a8dadbd932
-    icon: https://volumez.com/wp-content/uploads/2022/01/Group-2273.svg
-    name: volumez-csi
-    type: application
-    urls:
-    - https://github.com/VolumezTech/helm-csi/releases/download/volumez-csi-1.30.0/volumez-csi-1.30.0.tgz
     version: 1.30.0
   - apiVersion: v2
     created: "2025-04-16T08:30:31.981976827Z"
