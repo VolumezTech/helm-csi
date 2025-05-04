@@ -1,4 +1,4 @@
-name: Trigger CSI Regression Tests
+name: CSI Regression Pipeline
 
 on: 
   pull_request:
@@ -8,29 +8,49 @@ on:
       - development
   
 jobs:
-  trigger_jenkins_job1:
-    name: Trigger AKS Regression
+  aks_regression:
+    name: AKS Regression Tests
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger Jenkins Job
+      - name: Trigger AKS Jenkins Job
         uses: appleboy/jenkins-action@master
         with:
           url: ${{ secrets.JENKINS_URL }}
           user: ${{ secrets.JENKINS_USERNAME }}
           token: ${{ secrets.JENKINS_TOKEN2 }}
           job: Regression_V3
-          parameters: Test_Plan=QA-5282,Private_SB=${{ github.head_ref || github.ref_name  }},AWS_EC2_OS=aks_latest,AWS_APP_OS=aks_latest,Config_File=aks_fast_regression_default.json,Manifest_Branch=master,pipeline_automation_branch=master,is_ms_mode=True,AWS_EC2_VNL=True,AWS_APP_VNL=True
+          parameters: >
+            Test_Plan=QA-5282,
+            Private_SB=${{ github.head_ref || github.ref_name }},
+            AWS_EC2_OS=aks_latest,
+            AWS_APP_OS=aks_latest,
+            Config_File=aks_fast_regression_default.json,
+            Manifest_Branch=master,
+            pipeline_automation_branch=master,
+            is_ms_mode=True,
+            AWS_EC2_VNL=True,
+            AWS_APP_VNL=True
 
-  trigger_jenkins_job2:
-    name: Trigger EKS Regression
+  eks_regression:
+    name: EKS Regression Tests
     runs-on: ubuntu-latest
-    needs: trigger_jenkins_job1
+    needs: aks_regression
     steps:
-      - name: Trigger Jenkins Job
+      - name: Trigger EKS Jenkins Job
         uses: appleboy/jenkins-action@master
         with:
           url: ${{ secrets.JENKINS_URL }}
           user: ${{ secrets.JENKINS_USERNAME }}
           token: ${{ secrets.JENKINS_TOKEN2 }}
-          job: "Regression_V3"
-          parameters: Test_Plan=QA-5282,Private_SB=${{ github.head_ref || github.ref_name  }},AWS_EC2_OS=aks_latest,AWS_APP_OS=aks_latest,Config_File=aks_fast_regression_default.json,Manifest_Branch=master,pipeline_automation_branch=master,is_ms_mode=True,AWS_EC2_VNL=True,AWS_APP_VNL=True
+          job: Regression_V3
+          parameters: >
+            Test_Plan=QA-5282,
+            Private_SB=${{ github.head_ref || github.ref_name }},
+            AWS_EC2_OS=eks_latest,
+            AWS_APP_OS=eks_latest,
+            Config_File=eks_fast_regression_default.json,
+            Manifest_Branch=master,
+            pipeline_automation_branch=master,
+            is_ms_mode=True,
+            AWS_EC2_VNL=True,
+            AWS_APP_VNL=True 
