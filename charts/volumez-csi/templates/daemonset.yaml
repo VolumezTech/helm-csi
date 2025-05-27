@@ -11,6 +11,8 @@ spec:
     metadata:
       labels:
         app: csi-nodeplugin-vlzplugin
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
     spec:
       serviceAccountName: csi-nodeplugin
       terminationGracePeriodSeconds: 30
@@ -52,7 +54,7 @@ spec:
             - "--endpoint=$(CSI_ENDPOINT)"
             - "--volumez-endpoint=$(VOLUMEZ_ENDPOINT)"
             - "--volumez-endpoint-base-path=$(VOLUMEZ_ENDPOINT_BASE_PATH)"
-            - "--volumez-auth-token=$(VOLUMEZ_AUTH_TOKEN)"            
+            - "--volumez-auth-token=$(VOLUMEZ_AUTH_TOKEN)"
             - "--run-connector=$(RUN_CONNECTOR)"
             - "--connector-force-install=$(CONNECTOR_FORCE_INSTALL)"
             - "--connector-download-repository-base-url=$(CONNECTOR_DOWNLOAD_REPOSITORY_BASE_URL)"
@@ -65,29 +67,11 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: spec.nodeName
-            - name: CSI_ENDPOINT
-              value: unix://plugin/csi.sock
-            - name: VOLUMEZ_ENDPOINT
-              value: "{{ .Values.vlzEndpoint.apiUrl }}"
-            - name: VOLUMEZ_ENDPOINT_BASE_PATH
-              value: "{{ .Values.vlzEndpoint.basePath }}"
-            - name: VOLUMEZ_AUTH_TOKEN
-              value: "{{ .Values.vlzAuthToken }}"
             - name: RUN_CONNECTOR
               value: "true"
-            - name: CONNECTOR_FORCE_INSTALL
-              value: "{{ .Values.vlzConnector.forceInstall }}"
-            - name: CONNECTOR_DOWNLOAD_REPOSITORY_BASE_URL
-              value: "{{ .Values.vlzConnector.repoUrl }}"
-            - name: CONNECTOR_API_DOMAIN
-              value: "{{ .Values.vlzConnector.domain }}"
-            - name: ENV_ID
-              value: "{{ .Values.envId }}"
-            - name: DRIVER_NAME_SUFFIX
-              value: "{{- if .Values.multiInstanceMode }}{{ .Release.Namespace }}{{- end }}"
-            - name: VERBOSE_LEVEL
-              value: "{{ .Values.verboseLevel }}"
-
+          envFrom:
+            - configMapRef:
+                name: vlz-config
           imagePullPolicy: "Always"
           volumeMounts:
             - name: plugin-dir
