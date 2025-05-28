@@ -1,2 +1,3 @@
 /charts/volumez-csi/charts
 values.dev*.yaml
+.DS_Store
