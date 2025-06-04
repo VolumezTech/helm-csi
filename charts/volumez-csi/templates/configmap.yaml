@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vlz-config
+  namespace: {{ .Release.Namespace }}
+data:
+  CSI_ENDPOINT: "unix://plugin/csi.sock"
+  VOLUMEZ_ENDPOINT: "{{ .Values.vlzEndpoint.apiUrl }}"
+  VOLUMEZ_ENDPOINT_BASE_PATH: "{{ .Values.vlzEndpoint.basePath }}"
+  VOLUMEZ_AUTH_TOKEN: "{{ .Values.vlzAuthToken }}"
+  CONNECTOR_FORCE_INSTALL: "{{ .Values.vlzConnector.forceInstall }}"
+  CONNECTOR_DOWNLOAD_REPOSITORY_BASE_URL: "{{ .Values.vlzConnector.repoUrl }}"
+  CONNECTOR_API_DOMAIN: "{{ .Values.vlzConnector.domain }}"
+  ENV_ID: "{{ .Values.envId }}"
+  DRIVER_NAME_SUFFIX: "{{- if .Values.multiInstanceMode }}{{ .Release.Namespace }}{{- end }}"
+  VERBOSE_LEVEL: "{{ .Values.verboseLevel }}"
