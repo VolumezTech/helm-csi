@@ -1,23 +1,23 @@
 kind: StatefulSet
 apiVersion: apps/v1
 metadata:
-  name: csi-attacher-vlzplugin
+  name: vlz-csi-controller
   namespace: {{ .Release.Namespace }}
 spec:
-  serviceName: "csi-attacher"
+  serviceName: "vlz-csi-controller"
   replicas: 1
   selector:
     matchLabels:
-      app: csi-attacher-vlzplugin
+      app: vlz-csi-controller
   template:
     metadata:
       labels:
-        app: csi-attacher-vlzplugin
+        app: vlz-csi-controller
         deploymentRevisionId: "{{ .Release.Revision }}" # this here updates and forces refresh
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
     spec:
-      serviceAccountName: csi-attacher
+      serviceAccountName: vlz-csi-controller-sa
       containers:
         - name: csi-snapshotter
           image: registry.k8s.io/sig-storage/csi-snapshotter:{{ .Values.sidecars.snapshotter.tag }}
@@ -148,11 +148,11 @@ spec:
       volumes:
         - name: socket-dir
           emptyDir:
-{{- if .Values.csiAttacherVlzplugin.tolerations }}
+{{- if .Values.vlzCsiController.tolerations }}
       tolerations:
-{{ toYaml .Values.csiAttacherVlzplugin.tolerations | indent 8 }}
+{{ toYaml .Values.vlzCsiController.tolerations | indent 8 }}
 {{- end -}}
-{{- if .Values.csiAttacherVlzplugin.nodeSelector }}
+{{- if .Values.vlzCsiController.nodeSelector }}
       nodeSelector:
-{{ toYaml .Values.csiAttacherVlzplugin.nodeSelector | indent 8 }}
+{{ toYaml .Values.vlzCsiController.nodeSelector | indent 8 }}
 {{- end -}}
