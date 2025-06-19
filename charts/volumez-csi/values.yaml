@@ -47,13 +47,13 @@ sidecars:
   resizer:
     tag: "v1.9.0"
 
-# -- Allows to install the driver and sidecars on a specific node or node group
-csiAttacherVlzplugin:
+# -- Allows to install the controller and sidecars on a specific node or node group
+controller:
   tolerations:
   nodeSelector:
 
 # -- Allows to install the nodeplugin on a specific node or node group
-csiNodeVlzplugin:
+node:
   tolerations:
   nodeSelector:
   affinity:
