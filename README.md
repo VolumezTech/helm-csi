@@ -13,6 +13,11 @@ helm repo add volumez-csi https://volumeztech.github.io/helm-csi --force-update
 
 ### Configuration
 
+The chart supports the following key configuration options:
+
+#### Required Configuration
+- `vlzAuthToken`: Volumez authentication token (refresh token)
+
 For detailed configuration options, please refer to the [volumez-csi chart README](./charts/volumez-csi/README.md).
 
 ### Install
@@ -20,49 +25,59 @@ For detailed configuration options, please refer to the [volumez-csi chart READM
 To install the `volumez-csi` chart:
 
 ```bash
-helm install volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --create-namespace 
+helm install volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --create-namespace \
+  --set vlzAuthToken="your-auth-token" 
 ```
 
 To install a specific chart version:
 ```bash
-helm install volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --create-namespace --version VERSION_TAG
-```
-i.e:
-```bash
-helm install volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --create-namespace --version 1.31.0-rc.1
-```
-<br/>
-
-To install `volumez-csi` on a specific node or node group, first label the node(s) appropriately.
-Then, add the following flag to the end of your helm install command, replacing `<label-key>` and `<label-values>` with your actual labels:
-
-```bash
---set-json 'csiNodeVlzplugin.affinity={"nodeAffinity":{"requiredDuringSchedulingIgnoredDuringExecution":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"<label-key>","operator":"In","values":["<label-values>"]}]}]}}}'
+helm install volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --create-namespace \
+  --set vlzAuthToken="your-auth-token" \
+  --version VERSION_TAG
 ```
 
-i.e:
-To schedule the driver only on nodes labeled with nodepool-type=app or nodepool-type=media, use:
+Example with specific version:
 ```bash
---set-json 'csiNodeVlzplugin.affinity={"nodeAffinity":{"requiredDuringSchedulingIgnoredDuringExecution":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"nodepool-type","operator":"In","values":["app", "media"]}]}]}}}'
+helm install volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --create-namespace \
+  --set vlzAuthToken="your-auth-token" \
+  --version 1.31.0-rc.1
+```
+
+#### Node-Specific Installation
+
+To install `volumez-csi` on specific nodes or node groups, first label the node(s) appropriately.
+Then, add the following flag to your helm install command, replacing `<label-key>` and `<label-values>` with your actual labels:
+
+```bash
+--set-json 'node.affinity={"nodeAffinity":{"requiredDuringSchedulingIgnoredDuringExecution":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"<label-key>","operator":"In","values":["<label-values>"]}]}]}}}'
+```
+
+Example - schedule only on nodes labeled with `nodepool-type=app` or `nodepool-type=media`:
+```bash
+helm install volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --create-namespace \
+  --set vlzAuthToken="your-auth-token" \
+  --set-json 'node.affinity={"nodeAffinity":{"requiredDuringSchedulingIgnoredDuringExecution":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"nodepool-type","operator":"In","values":["app", "media"]}]}]}}}'
 ```
 
 ### Upgrade
 
 If you previously added this repository, run `helm repo update` to fetch the latest package versions.
-Afterwards, you can run `helm search repo volumez-csi -l` to view the available charts.<br/>
+Afterwards, you can run `helm search repo volumez-csi -l` to view the available charts.
+
 To upgrade the chart:
-  ```bash
-  helm upgrade volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver 
-  ```
+```bash
+helm upgrade volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver
+```
 
 To upgrade to a specific chart version:
-  ```bash
-  helm upgrade volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --version VERSION_TAG
-  ```
-i.e:
-  ```bash
-  helm upgrade volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --version 1.31.0-rc.1
-  ```
+```bash
+helm upgrade volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --version VERSION_TAG
+```
+
+Example:
+```bash
+helm upgrade volumez-csi volumez-csi/volumez-csi -n vlz-csi-driver --version 1.31.0-rc.1
+```
 
 ### Uninstall
 
