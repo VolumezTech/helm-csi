@@ -1,20 +1,20 @@
 kind: DaemonSet
 apiVersion: apps/v1
 metadata:
-  name: csi-nodeplugin-vlzplugin
+  name: vlz-csi-node
   namespace: {{ .Release.Namespace }}
 spec:
   selector:
     matchLabels:
-      app: csi-nodeplugin-vlzplugin
+      app: vlz-csi-node
   template:
     metadata:
       labels:
-        app: csi-nodeplugin-vlzplugin
+        app: vlz-csi-node
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
     spec:
-      serviceAccountName: csi-nodeplugin
+      serviceAccountName: vlz-csi-node-sa
       terminationGracePeriodSeconds: 30
       containers:
         - name: node-driver-registrar
@@ -128,15 +128,15 @@ spec:
         - name: connector-config
           emptyDir:
             sizeLimit: 1Mi
-{{- if .Values.csiNodeVlzplugin.tolerations }}
+{{- if .Values.node.tolerations }}
       tolerations:
-{{ toYaml .Values.csiNodeVlzplugin.tolerations | indent 8 }}
+{{ toYaml .Values.node.tolerations | indent 8 }}
 {{- end -}}
-{{- if .Values.csiNodeVlzplugin.nodeSelector }}
+{{- if .Values.node.nodeSelector }}
       nodeSelector:
-{{ toYaml .Values.csiNodeVlzplugin.nodeSelector | indent 8 }}
+{{ toYaml .Values.node.nodeSelector | indent 8 }}
 {{- end -}}
-{{- if .Values.csiNodeVlzplugin.affinity }}
+{{- if .Values.node.affinity }}
       affinity:
-{{ toYaml .Values.csiNodeVlzplugin.affinity | indent 8 }}
+{{ toYaml .Values.node.affinity | indent 8 }}
 {{- end -}}
