@@ -1,0 +1,12 @@
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: vlz-csi-node-binding{{- if .Values.multiInstanceMode }}-{{ .Release.Namespace }}{{- end }}
+subjects:
+  - kind: ServiceAccount
+    name: vlz-csi-node-sa
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: ClusterRole
+  name: vlz-csi-node-role{{- if .Values.multiInstanceMode }}-{{ .Release.Namespace }}{{- end }}
+  apiGroup: rbac.authorization.k8s.io  
