@@ -16,6 +16,7 @@ spec:
     spec:
       serviceAccountName: vlz-csi-node-sa
       terminationGracePeriodSeconds: 30
+      hostPID: true
       containers:
         - name: node-driver-registrar
           image: registry.k8s.io/sig-storage/csi-node-driver-registrar:{{ .Values.sidecars.registrar.tag }}
