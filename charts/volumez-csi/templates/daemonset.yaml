@@ -16,6 +16,49 @@ spec:
     spec:
       serviceAccountName: vlz-csi-node-sa
       terminationGracePeriodSeconds: 30
+      securityContext:
+        runAsNonRoot: false
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
+      initContainers:
+        - name: vlz-connector-init
+          securityContext:
+            privileged: true
+          image: "{{ .Values.vlzCsiDriver.repository }}:{{ .Values.vlzCsiDriver.tag }}"
+          args:
+            - "--mode=connector"
+            - "--nodeid=$(NODE_ID)"
+            - "--endpoint=$(CSI_ENDPOINT)"
+            - "--volumez-endpoint=$(VOLUMEZ_ENDPOINT)"
+            - "--volumez-endpoint-base-path=$(VOLUMEZ_ENDPOINT_BASE_PATH)"
+            - "--volumez-auth-token=$(VOLUMEZ_AUTH_TOKEN)"
+            - "--connector-force-install=$(CONNECTOR_FORCE_INSTALL)"
+            - "--connector-download-repository-base-url=$(CONNECTOR_DOWNLOAD_REPOSITORY_BASE_URL)"
+            - "--connector-api-domain=$(CONNECTOR_API_DOMAIN)"
+            - "--env-id=$(ENV_ID)"
+            - "--driver-suffix=$(DRIVER_NAME_SUFFIX)"
+            - "--v=$(VERBOSE_LEVEL)"
+          env:
+            - name: NODE_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          envFrom:
+            - configMapRef:
+                name: vlz-config
+          imagePullPolicy: "Always"
+          volumeMounts:
+            - mountPath: /lib/modules
+              name: lib-modules
+            - mountPath: /sys
+              name: sysfs
+            - mountPath: /dev
+              name: dev
+            - mountPath: /run/dbus
+              name: systemd
+            - mountPath: /tmp/volumez
+              name: connector-config
       containers:
         - name: node-driver-registrar
           image: registry.k8s.io/sig-storage/csi-node-driver-registrar:{{ .Values.sidecars.registrar.tag }}
@@ -37,12 +80,10 @@ spec:
               mountPath: /plugin
             - name: registration-dir
               mountPath: /registration
-        - name: vlz
           securityContext:
-            privileged: true
-            capabilities:
-              add: ["SYS_ADMIN"]
-            allowPrivilegeEscalation: true
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+        - name: vlz
           image: "{{ .Values.vlzCsiDriver.repository }}:{{ .Values.vlzCsiDriver.tag }}"
           lifecycle:
             preStop:
@@ -50,16 +91,12 @@ spec:
                 path: "/cleanup"
                 port: 3333
           args:
+            - "--mode=node"
             - "--nodeid=$(NODE_ID)"
             - "--endpoint=$(CSI_ENDPOINT)"
             - "--volumez-endpoint=$(VOLUMEZ_ENDPOINT)"
             - "--volumez-endpoint-base-path=$(VOLUMEZ_ENDPOINT_BASE_PATH)"
             - "--volumez-auth-token=$(VOLUMEZ_AUTH_TOKEN)"
-            - "--run-connector=$(RUN_CONNECTOR)"
-            - "--connector-force-install=$(CONNECTOR_FORCE_INSTALL)"
-            - "--connector-download-repository-base-url=$(CONNECTOR_DOWNLOAD_REPOSITORY_BASE_URL)"
-            - "--connector-api-domain=$(CONNECTOR_API_DOMAIN)"
-            - "--env-id=$(ENV_ID)"
             - "--driver-suffix=$(DRIVER_NAME_SUFFIX)"
             - "--v=$(VERBOSE_LEVEL)"
           env:
@@ -67,12 +104,12 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: spec.nodeName
-            - name: RUN_CONNECTOR
-              value: "true"
           envFrom:
             - configMapRef:
                 name: vlz-config
           imagePullPolicy: "Always"
+          securityContext:
+            privileged: true
           volumeMounts:
             - name: plugin-dir
               mountPath: /plugin
@@ -92,6 +129,8 @@ spec:
               name: systemd
             - mountPath: /tmp/volumez
               name: connector-config
+            - name: volumez-logs
+              mountPath: /var/log/volumez
       volumes:
         - name: plugin-dir
           hostPath:
@@ -128,6 +167,8 @@ spec:
         - name: connector-config
           emptyDir:
             sizeLimit: 1Mi
+        - name: volumez-logs
+          emptyDir: {}
 {{- if .Values.node.tolerations }}
       tolerations:
 {{ toYaml .Values.node.tolerations | indent 8 }}

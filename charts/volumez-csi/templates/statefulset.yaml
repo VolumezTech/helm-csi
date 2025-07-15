@@ -18,6 +18,11 @@ spec:
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
     spec:
       serviceAccountName: vlz-csi-controller-sa
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
       containers:
         - name: csi-snapshotter
           image: registry.k8s.io/sig-storage/csi-snapshotter:{{ .Values.sidecars.snapshotter.tag }}
@@ -35,12 +40,22 @@ spec:
           volumeMounts:
             - name: socket-dir
               mountPath: /csi
+          securityContext:
+            seccompProfile:
+              type: RuntimeDefault
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
 
         - name: csi-snapshot-controller
           image: registry.k8s.io/sig-storage/snapshot-controller:{{ .Values.sidecars.snapshotController.tag }}
           args:
             - "--v=5"
           imagePullPolicy: IfNotPresent
+          securityContext:
+            seccompProfile:
+              type: RuntimeDefault
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
 
         - name: csi-provisioner
           image: registry.k8s.io/sig-storage/csi-provisioner:{{ .Values.sidecars.provisioner.tag }}
@@ -58,6 +73,11 @@ spec:
           volumeMounts:
             - name: socket-dir
               mountPath: /csi
+          securityContext:
+            seccompProfile:
+              type: RuntimeDefault
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
 
         - name: csi-attacher
           image: registry.k8s.io/sig-storage/csi-attacher:{{ .Values.sidecars.attacher.tag }}
@@ -75,6 +95,11 @@ spec:
           volumeMounts:
             - name: socket-dir
               mountPath: /csi
+          securityContext:
+            seccompProfile:
+              type: RuntimeDefault
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
 
         - name: csi-resizer
           image: registry.k8s.io/sig-storage/csi-resizer:{{ .Values.sidecars.resizer.tag }}
@@ -91,6 +116,11 @@ spec:
           volumeMounts:
             - name: socket-dir
               mountPath: /csi
+          securityContext:
+            seccompProfile:
+              type: RuntimeDefault
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
 
         - name: vlz-snapshotrollback-controller
           image: "{{ .Values.vlzSnapshotRollbackController.repository }}:{{ .Values.vlzSnapshotRollbackController.tag }}"
@@ -115,21 +145,22 @@ spec:
                 configMapKeyRef:
                   name: vlz-config
                   key: VOLUMEZ_AUTH_TOKEN
+          securityContext:
+            seccompProfile:
+              type: RuntimeDefault
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
 
         - name: vlz
           image: "{{ .Values.vlzCsiDriver.repository }}:{{ .Values.vlzCsiDriver.tag }}"
           imagePullPolicy: "Always"
           args:
+            - "--mode=controller"
             - "--nodeid=$(NODE_ID)"
             - "--endpoint=$(CSI_ENDPOINT)"
             - "--volumez-endpoint=$(VOLUMEZ_ENDPOINT)"
             - "--volumez-endpoint-base-path=$(VOLUMEZ_ENDPOINT_BASE_PATH)"
             - "--volumez-auth-token=$(VOLUMEZ_AUTH_TOKEN)"
-            - "--run-connector=$(RUN_CONNECTOR)"
-            - "--connector-force-install=$(CONNECTOR_FORCE_INSTALL)"
-            - "--connector-download-repository-base-url=$(CONNECTOR_DOWNLOAD_REPOSITORY_BASE_URL)"
-            - "--connector-api-domain=$(CONNECTOR_API_DOMAIN)"
-            - "--env-id=$(ENV_ID)"
             - "--driver-suffix=$(DRIVER_NAME_SUFFIX)"
             - "--v=$(VERBOSE_LEVEL)"
           env:
@@ -137,17 +168,24 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: spec.nodeName
-            - name: RUN_CONNECTOR
-              value: "false"
           envFrom:
             - configMapRef:
                 name: vlz-config
           volumeMounts:
             - name: socket-dir
               mountPath: /plugin
+            - name: volumez-logs
+              mountPath: /var/log/volumez
+          securityContext:
+            seccompProfile:
+              type: RuntimeDefault
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
       volumes:
         - name: socket-dir
           emptyDir:
+        - name: volumez-logs
+          emptyDir: {}
 {{- if .Values.controller.tolerations }}
       tolerations:
 {{ toYaml .Values.controller.tolerations | indent 8 }}
