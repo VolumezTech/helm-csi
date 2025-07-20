@@ -57,3 +57,11 @@ node:
   tolerations:
   nodeSelector:
   affinity:
+
+metrics:
+  # -- Enable metrics for the CSI driver
+  enable: false
+
+  # -- Additional labels for ServiceMonitor and PodMonitor objects
+  monitorLabels:
+    release: prometheus

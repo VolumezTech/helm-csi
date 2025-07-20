@@ -98,6 +98,7 @@ spec:
             - "--volumez-endpoint-base-path=$(VOLUMEZ_ENDPOINT_BASE_PATH)"
             - "--volumez-auth-token=$(VOLUMEZ_AUTH_TOKEN)"
             - "--driver-suffix=$(DRIVER_NAME_SUFFIX)"
+            - "--enable-metrics=$(ENABLE_METRICS)"
             - "--v=$(VERBOSE_LEVEL)"
           env:
             - name: NODE_ID
@@ -110,6 +111,12 @@ spec:
           imagePullPolicy: "Always"
           securityContext:
             privileged: true
+          {{- if .Values.metrics.enable }}
+          ports:
+            - name: metrics
+              containerPort: 8080
+              protocol: TCP
+          {{- end }}
           volumeMounts:
             - name: plugin-dir
               mountPath: /plugin

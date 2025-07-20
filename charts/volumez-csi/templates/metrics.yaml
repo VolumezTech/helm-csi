@@ -1,0 +1,68 @@
+{{- if .Values.metrics.enable -}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vlz-csi-controller
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: vlz-csi-controller
+spec:
+  selector:
+    app: vlz-csi-controller
+  ports:
+    - name: metrics
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP
+---
+{{- if .Capabilities.APIVersions.Has "monitoring.coreos.com/v1" }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: vlz-csi-controller
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: vlz-csi-controller
+    {{- if .Values.metrics.monitorLabels }}
+    {{- toYaml .Values.metrics.monitorLabels | nindent 4 }}
+    {{- end }}
+spec:
+  selector:
+    matchLabels:
+      app: vlz-csi-controller
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace }}
+  endpoints:
+    - port: metrics
+      path: /metrics
+      interval: "15s"
+{{- end }}
+{{- end }}
+---
+{{- if .Values.metrics.enable }}
+{{- if .Capabilities.APIVersions.Has "monitoring.coreos.com/v1" }}
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: vlz-csi-node
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: vlz-csi-node
+    {{- if .Values.metrics.monitorLabels }}
+    {{- toYaml .Values.metrics.monitorLabels | nindent 4 }}
+    {{- end }}
+spec:
+  selector:
+    matchLabels:
+      app: vlz-csi-node
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace }}
+  podMetricsEndpoints:
+    - port: metrics
+      path: /metrics
+      interval: "15s"
+{{- end }}
+{{- end }}
