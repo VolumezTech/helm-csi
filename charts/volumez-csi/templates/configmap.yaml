@@ -14,3 +14,4 @@ data:
   ENV_ID: "{{ .Values.envId }}"
   DRIVER_NAME_SUFFIX: "{{- if .Values.multiInstanceMode }}{{ .Release.Namespace }}{{- end }}"
   VERBOSE_LEVEL: "{{ .Values.verboseLevel }}"
+  ENABLE_METRICS: "{{ .Values.metrics.enable }}"
