@@ -181,8 +181,6 @@ spec:
           volumeMounts:
             - name: socket-dir
               mountPath: /plugin
-            - name: volumez-logs
-              mountPath: /var/log/volumez
           securityContext:
             seccompProfile:
               type: RuntimeDefault
@@ -191,8 +189,6 @@ spec:
       volumes:
         - name: socket-dir
           emptyDir:
-        - name: volumez-logs
-          emptyDir: {}
 {{- if .Values.controller.tolerations }}
       tolerations:
 {{ toYaml .Values.controller.tolerations | indent 8 }}
