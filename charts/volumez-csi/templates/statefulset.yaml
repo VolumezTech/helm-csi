@@ -63,6 +63,7 @@ spec:
             - "--csi-address=$(ADDRESS)"
             - "--extra-create-metadata"
             - "--feature-gates=Topology=true"
+            - "--controller-publish-readonly=true"
             - "--timeout=320s"
             - "--retry-interval-start=10s"
             - "--retry-interval-max=40m"
