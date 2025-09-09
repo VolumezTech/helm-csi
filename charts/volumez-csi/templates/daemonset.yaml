@@ -136,8 +136,6 @@ spec:
               name: systemd
             - mountPath: /tmp/volumez
               name: connector-config
-            - name: volumez-logs
-              mountPath: /var/log/volumez
       volumes:
         - name: plugin-dir
           hostPath:
@@ -174,8 +172,6 @@ spec:
         - name: connector-config
           emptyDir:
             sizeLimit: 1Mi
-        - name: volumez-logs
-          emptyDir: {}
 {{- if .Values.node.tolerations }}
       tolerations:
 {{ toYaml .Values.node.tolerations | indent 8 }}
