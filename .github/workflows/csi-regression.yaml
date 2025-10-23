@@ -11,7 +11,7 @@ jobs:
   aks_regression:
     name: AKS Regression Tests
     runs-on: ubuntu-latest
-    steps:
+    steps:  
       - name: Trigger AKS Jenkins Job
         uses: appleboy/jenkins-action@master
         with:
@@ -27,11 +27,11 @@ jobs:
             Config_File=aks_fast_regression_default.json,
             Manifest_Branch=master,
             pipeline_automation_branch=master,
-            is_ms_mode=True,
+            is_ms_mode= True,
             AWS_EC2_VNL=True,
             AWS_APP_VNL=True
 
-  eks_regression:
+  eks_regression: 
     name: EKS Regression Tests
     runs-on: ubuntu-latest
     needs: aks_regression
@@ -51,6 +51,6 @@ jobs:
             Config_File=eks_fast_regression_default.json,
             Manifest_Branch=master,
             pipeline_automation_branch=master,
-            is_ms_mode=True,
+            is_ms_mode=True,  
             AWS_EC2_VNL=True,
             AWS_APP_VNL=True 
