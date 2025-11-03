@@ -1,6 +1,6 @@
 # volumez-csi
 
-![Version: 1.35.0-rc.1](https://img.shields.io/badge/Version-1.35.0--rc.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.16.0](https://img.shields.io/badge/AppVersion-1.16.0-informational?style=flat-square)
+![Version: 1.36.0-rc.1](https://img.shields.io/badge/Version-1.36.0--rc.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: c39f6dc275c8b72c3d4f59819d5c09b4c662fa5f](https://img.shields.io/badge/AppVersion-c39f6dc275c8b72c3d4f59819d5c09b4c662fa5f-informational?style=flat-square)
 
 A Helm chart for Volumez-CSI Driver
 
@@ -12,7 +12,7 @@ A Helm chart for Volumez-CSI Driver
 | vlzAuthToken | string | `""` | CSI Driver Token (Refresh Token) |
 | verboseLevel | int | `0` |  |
 | vlzCsiDriver.repository | string | `"public.ecr.aws/u0q8u2v6/volumez-csi"` |  |
-| vlzCsiDriver.tag | string | `"v1.22.0-rc.1"` |  |
+| vlzCsiDriver.tag | string | `"v1.22.0"` |  |
 | vlzCsiDriver.fsGroupPolicy | string | `"File"` |  |
 | vlzSnapshotRollbackController.repository | string | `"public.ecr.aws/u0q8u2v6/vlz-snapshotrollback-controller"` |  |
 | vlzSnapshotRollbackController.tag | string | `"v1.3.0"` |  |
