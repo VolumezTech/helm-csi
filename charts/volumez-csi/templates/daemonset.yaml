@@ -21,6 +21,7 @@ spec:
         runAsUser: 0
         runAsGroup: 0
         fsGroup: 0
+      hostNetwork: true
       initContainers:
         - name: vlz-connector-init
           securityContext:
